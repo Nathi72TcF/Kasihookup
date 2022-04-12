@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Platform } from '@ionic/angular';
-// import { Storage } from '@ionic/storage';
+import { Storage } from '@ionic/storage';
 
 const THEME_KEY = "selected-app-theme";
 

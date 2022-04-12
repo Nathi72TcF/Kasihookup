@@ -20,7 +20,7 @@ import { AngularFireDatabaseModule } from '@angular/fire/compat/database';
 import { AngularFireMessagingModule } from '@angular/fire/compat/messaging';
 import { NgCalendarModule } from 'ionic2-calendar';
 
-// import { IonicStorageModule } from '@ionic/storage'
+import { IonicStorageModule } from '@ionic/storage'
 
 // import FCM
 import { FCM } from '@ionic-native/fcm/ngx';
@@ -32,7 +32,7 @@ import { FCM } from '@ionic-native/fcm/ngx';
     BrowserModule, 
     IonicModule.forRoot(), 
     AppRoutingModule, 
-    // IonicStorageModule.forRoot(),
+    IonicStorageModule.forRoot(),
     provideFirebaseApp(() => initializeApp(environment.firebase)), 
     provideFirestore(() => getFirestore()), 
     ServiceWorkerModule.register('combined-worker.js', {
