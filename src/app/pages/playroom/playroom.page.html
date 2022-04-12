@@ -1,0 +1,21 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title color="primary">Play Room</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content fullscreen padding>
+
+  <ion-list *ngIf="Kama.length === 0" style="align-content: center;">
+    <ion-item lines="none">
+      <ion-skeleton-text animated style="width: 300px;height: 400px;border-radius: 8px;"></ion-skeleton-text>
+    </ion-item>
+  </ion-list>
+
+  <ion-slides [options]="sliderOpts">
+    <ion-slide *ngFor="let kam of Kama">
+        <img src="{{ kam.image }}" tappable (click)="openPreview(kam.image)">
+    </ion-slide>
+  </ion-slides>
+
+</ion-content>

@@ -1,0 +1,288 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title color="primary" *ngFor="let user of userProfile">
+     {{ user.name }} {{ user.surname }}
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+  <ion-list lines="none">
+    <ion-item lines="none" *ngFor="let user of userProfile">
+      <ion-avatar slot="start" style="width: 72px;height: 72px;">
+        <img *ngIf="!user.image" src="../../../../../assets/images/User_Avatar.png" alt="">
+        <img *ngIf="user.image" src="{{ user.image }}">
+      </ion-avatar>
+      <ion-label>
+        <h1 style="font-weight: bold;" class="p">{{user.name}} {{user.surname}}</h1>
+        <h3 class="p">Age - {{user.year}}</h3>
+        <h3 class="p">Location - {{user.location}}</h3>
+        <p style="vertical-align: middle;display: table-cell;" class="p">
+          {{ user.online ? 'online' : 'offline'}}
+          <ion-icon name="phone-portrait-outline" size="small" color="primary"
+            style="width: 14px;height: 14px;vertical-align: middle;" *ngIf="user.isMobileOnline">
+          </ion-icon>
+        </p>
+      </ion-label>
+    </ion-item>
+    <ion-item *ngFor="let hook of Profiles">
+      <ion-label color="primary" position="floating">About Me</ion-label><br>
+      <h5 class="p">"{{ hook.aboutme }}"</h5>
+    </ion-item>
+    <ion-item>
+      <ion-button *ngFor="let user of userProfile" color="primary" (click)="addmessage(user.userid)">
+        Message {{ user.name }} {{ user.surname }}
+      </ion-button>
+    </ion-item>
+
+    <!-- Basics -->
+      <ion-card>
+        <ion-card-header>
+          <ion-card-title color="primary">Basics</ion-card-title><br>
+        </ion-card-header>
+
+        <ion-card-content *ngFor="let user of Profiles">
+          <ion-item>
+            <ion-label color="primary" position="floating">Gender</ion-label><br>
+            <h5 class="p">{{ user.gender }}</h5>
+          </ion-item>
+          <ion-item>
+            <ion-label color="primary" position="floating">Height</ion-label><br>
+            <h5 class="p">{{ user.height }}</h5>
+          </ion-item>
+          <ion-item>
+            <ion-label color="primary" position="floating">Weight</ion-label><br>
+            <h5 class="p">{{ user.weight }}</h5>
+          </ion-item>
+          <ion-item>
+            <ion-label color="primary" position="floating">Eye Colour</ion-label><br>
+            <h5 class="p">{{ user.eyecolour }}</h5>
+          </ion-item>
+          <ion-item>
+            <ion-label color="primary" position="floating">Body Type</ion-label><br>
+            <h5 class="p">{{ user.bodytype }}</h5>
+          </ion-item>
+          <ion-item>
+            <ion-label color="primary" position="floating">Hair Color</ion-label><br>
+            <h5 class="p">{{ user.haircolor }}</h5>
+          </ion-item>
+          <ion-item>
+            <ion-label color="primary" position="floating">Body Art</ion-label><br>
+            <h5 class="p">{{ user.bodyart }}</h5>
+          </ion-item>
+          <ion-item>
+            <ion-label color="primary" position="floating">Looking for</ion-label><br>
+            <h5 class="p">{{ user.lookingfor }}</h5>
+          </ion-item>
+          <ion-item>
+            <ion-label color="primary" position="floating">Turn off's</ion-label><br>
+            <h5 class="p">{{ user.turnoff }}</h5>
+          </ion-item>
+        </ion-card-content>
+      </ion-card>
+
+    <!-- Personality -->
+      <ion-card>
+        <ion-card-header>
+          <ion-card-title color="primary">Personality</ion-card-title><br>
+        </ion-card-header>
+
+        <ion-card-content *ngFor="let user of Profiles">
+          <ion-item>
+            <ion-label color="primary" position="floating">Star Sign</ion-label><br>
+            <h5 class="p">{{ user.starsign }}</h5>
+          </ion-item>
+          <ion-item>
+            <ion-label color="primary" position="floating">Status</ion-label><br>
+            <h5 class="p">{{ user.status }}</h5>
+          </ion-item>
+          <ion-item>
+            <ion-label color="primary" position="floating">Ethnicity</ion-label><br>
+            <h5 class="p">{{ user.ethnicity }}</h5>
+          </ion-item>
+          <ion-item>
+            <ion-label color="primary" position="floating">living</ion-label><br>
+            <h5 class="p">{{ user.Living }}</h5>
+          </ion-item>
+          <ion-item>
+            <ion-label color="primary" position="floating">Drinking Habits</ion-label><br>
+            <h5 class="p">{{ user.drinkinghabits }}</h5>
+          </ion-item>
+          <ion-item>
+            <ion-label color="primary" position="floating">Education</ion-label><br>
+            <h5 class="p">{{ user.education }}</h5>
+          </ion-item>
+          <ion-item>
+            <ion-label color="primary" position="floating">Children</ion-label><br>
+            <h5 class="p">{{ user.children }}</h5>
+          </ion-item>
+          <ion-item>
+            <ion-label color="primary" position="floating">Smoking Habits</ion-label><br>
+            <h5 class="p">{{ user.smokinghabits }}</h5>
+          </ion-item>
+          <ion-item>
+            <ion-label color="primary" position="floating">sexdrive</ion-label><br>
+            <h5 class="p">{{ user.sexdrive }}</h5>
+          </ion-item>
+        </ion-card-content>
+      </ion-card><br>
+    </ion-list>
+
+      <ion-item>
+        <h3 class="p">My Pictures</h3><br>
+      </ion-item>
+      <ion-item *ngIf="Pictures.length === 0">
+        <ion-card>
+          <ion-card-content class="align">
+            <ion-avatar slot="start">
+              <img src="../../../assets/images/none.jpg" >
+            </ion-avatar>
+          </ion-card-content>
+        </ion-card>
+      </ion-item>
+      <ion-item >
+          <ion-card *ngFor="let hooks of Pictures">
+            <ion-card-content>
+              <ion-avatar slot="start" tappable (click)="openPreview(hooks.image)">
+                <img *ngIf="hooks.image" src="{{hooks.image}}" alt="">
+              </ion-avatar><br>
+              <h5 class="p">{{ hooks.picname }}</h5>
+            </ion-card-content>
+          </ion-card>
+      </ion-item>
+
+      <ion-item>
+        <h3 class="p">My Fettish</h3>
+      </ion-item>
+      <!-- <ion-item *ngFor="let hook of Profiles">
+        <ion-card *ngIf="hook.fettish.length === 0">
+          <ion-card-content class="align">
+            <ion-avatar slot="start">
+              <img src="../../../assets/images/none.jpg" >
+            </ion-avatar>
+          </ion-card-content>
+        </ion-card>
+      </ion-item> -->
+      <ion-item *ngFor="let hook of Profiles">
+        <div style="overflow: scroll;">
+          <ion-card *ngFor="let hooks of hook.fettish">
+            <ion-card-content>
+              <ion-avatar slot="start" tappable (click)="openPreview(hooks.image)">
+                <img *ngIf="hooks.image" src="{{hooks.image}}" alt="">
+              </ion-avatar><br>
+              <h5 class="p">{{ hooks.picname }}</h5>
+            </ion-card-content>
+          </ion-card>
+        </div>
+      </ion-item>
+
+      <ion-item>
+        <h3 class="p">Kamasutra that ive Done</h3>
+      </ion-item>
+      <ion-item *ngIf="kamaDone.length === 0">
+        <ion-card>
+          <ion-card-content class="align">
+            <ion-avatar slot="start">
+              <img src="../../../assets/images/none.jpg" >
+            </ion-avatar>
+          </ion-card-content>
+        </ion-card>
+      </ion-item>
+      <ion-item >
+          <ion-card *ngFor="let hooks of kamaDone">
+            <ion-card-content>
+              <ion-avatar slot="start" tappable (click)="openPreview(hooks.pic)">
+                <img *ngIf="hooks.pic" src="{{hooks.pic}}" alt="">
+              </ion-avatar>
+            </ion-card-content>
+          </ion-card>
+      </ion-item>
+
+      <ion-item>
+        <h3 class="p">Liked Kamasutra Positions</h3>
+      </ion-item>
+      <ion-item *ngIf="kamaHeart.length === 0">
+        <ion-card>
+          <ion-card-content class="align">
+            <ion-avatar slot="start">
+              <img src="../../../assets/images/none.jpg" >
+            </ion-avatar>
+          </ion-card-content>
+        </ion-card>
+      </ion-item>
+      <ion-item >
+          <ion-card *ngFor="let hooks of kamaHeart">
+            <ion-card-content>
+              <ion-avatar slot="start" tappable (click)="openPreview(hooks.pic)">
+                <img *ngIf="hooks.pic" src="{{hooks.pic}}" alt="">
+              </ion-avatar>
+            </ion-card-content>
+          </ion-card>
+      </ion-item>
+
+      <ion-item>
+        <h3 class="p">Favorate Kamasutra Positions</h3>
+      </ion-item>
+      <ion-item *ngIf="kamaFavorate.length === 0">
+        <ion-card>
+          <ion-card-content class="align">
+            <ion-avatar slot="start">
+              <img src="../../../assets/images/none.jpg" >
+            </ion-avatar>
+          </ion-card-content>
+        </ion-card>
+      </ion-item>
+      <ion-item >
+          <ion-card *ngFor="let hooks of kamaFavorate">
+            <ion-card-content>
+              <ion-avatar slot="start" tappable (click)="openPreview(hooks.pic)">
+                <img *ngIf="hooks.pic" src="{{hooks.pic}}" alt="">
+              </ion-avatar>
+            </ion-card-content>
+          </ion-card>
+      </ion-item>
+
+      <ion-item>
+        <h3 class="p">Kamasutra that makes me Happy</h3>
+      </ion-item>
+      <ion-item *ngIf="kamaHappy.length === 0">
+        <ion-card>
+          <ion-card-content class="align">
+            <ion-avatar slot="start">
+              <img src="../../../assets/images/none.jpg" >
+            </ion-avatar>
+          </ion-card-content>
+        </ion-card>
+      </ion-item>
+      <ion-item >
+          <ion-card *ngFor="let hooks of kamaHappy">
+            <ion-card-content>
+              <ion-avatar slot="start" tappable (click)="openPreview(hooks.pic)">
+                <img *ngIf="hooks.pic" src="{{hooks.pic}}" alt="">
+              </ion-avatar>
+            </ion-card-content>
+          </ion-card>
+      </ion-item>
+
+      <ion-item>
+        <h3 class="p">Kamasutra that makes me Sad</h3>
+      </ion-item>
+      <ion-item *ngIf="kamaSad.length === 0">
+        <ion-card>
+          <ion-card-content class="align">
+            <ion-avatar slot="start">
+              <img src="../../../assets/images/none.jpg" >
+            </ion-avatar>
+          </ion-card-content>
+        </ion-card>
+      </ion-item>
+      <ion-item >
+          <ion-card *ngFor="let hooks of kamaSad">
+            <ion-card-content>
+              <ion-avatar slot="start" tappable (click)="openPreview(hooks.pic)">
+                <img *ngIf="hooks.pic" src="{{hooks.pic}}" alt="">
+              </ion-avatar>
+            </ion-card-content>
+          </ion-card>
+      </ion-item>
+</ion-content>

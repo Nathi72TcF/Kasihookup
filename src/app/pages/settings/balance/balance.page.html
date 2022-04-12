@@ -1,0 +1,84 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-icon name="arrow-back" (click)="goToSettings()" color="primary" vertical="end" slot="start" style="margin-left: 10px;"></ion-icon>
+    <ion-title color="primary">Account Balance</ion-title>
+
+    <ion-buttons slot="end">
+      <ion-button color="medium" tappable (click)="payOtherUser()">
+        <ion-icon color="primary" slot="start" name="cash-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+  <!-- <div class="login-box"> -->
+    <ion-card style="color: #4c8fa3; font-weight: 500;" align="center">
+      <ion-item lines="none">
+        <ion-avatar slot="start">
+          <img *ngIf="!profile.image" src="../../../../assets/images/User_Avatar.png" alt=""> 
+          <img *ngIf="profile.image" src="{{ profile.image }}">
+        </ion-avatar>
+        <ion-label color="primary">
+          {{ profile.username }} {{ profile.surnamez }}
+        </ion-label>
+      </ion-item>
+      <ion-card-content class="align">
+      <img src="./../../../../assets/images/tcf coin.jpg"><br>
+      
+      <ion-item class="align">
+        <ion-label color="primary">Wallet ID: {{ profile.tcfID }}</ion-label>
+      </ion-item>
+      <ion-item class="align">
+        <ion-label color="primary">Coin Balance: {{ profile.tcfCoin }}</ion-label>
+      </ion-item>
+
+    </ion-card-content>
+    </ion-card>
+
+    <ion-item class="align">
+      <ion-label color="primary">Coin History</ion-label>
+    </ion-item>
+
+    <ion-list>
+      <ion-item class="align">
+        <ion-label color="primary">Coin Out</ion-label>
+      </ion-item>
+      <ion-card *ngFor="let coin of coinOut | slice:0:5">
+        <ion-item lines="none">
+          <ion-avatar slot="start">
+            <img *ngIf="!coin.sentImage" src="../../assets/images/User_Avatar.png" alt=""> 
+            <img *ngIf="coin.sentImage" src="{{ coin.sentImage }}">
+          </ion-avatar><br>
+          <ion-label color="primary">
+            {{ coin.sentName }} {{ coin.sentSurname }}
+          </ion-label>
+        </ion-item>
+        <ion-item>
+          <ion-label color="primary">
+            Coin Sent : {{ coin.sentcoin }}
+          </ion-label>
+        </ion-item>
+      </ion-card>
+      <ion-item class="align">
+        <ion-label color="primary">Coin In</ion-label>
+      </ion-item>
+      <ion-card *ngFor="let coin of coinIn | slice:0:5">
+        <ion-item lines="none">
+          <ion-avatar slot="start">
+            <img src="{{ coin.recImage }}">
+          </ion-avatar>
+          <ion-label color="primary">
+            {{ coin.recName }} {{ coin.recSurname }}
+          </ion-label>
+        </ion-item>
+        <ion-item>
+          <ion-label color="primary">
+            Coin Received : {{ coin.reccoin }}
+          </ion-label>
+        </ion-item>
+      </ion-card>
+    </ion-list>
+
+  <!-- </div> -->
+</ion-content>

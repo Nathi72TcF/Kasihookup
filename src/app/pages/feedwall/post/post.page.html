@@ -1,0 +1,64 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title color="primary">
+     Add Post
+    </ion-title>
+
+    <ion-buttons slot="end" tappable [routerLink]="['tabs/feedwall']" routerDirection="forward">
+      <ion-icon color="primary" name="close"></ion-icon>
+    </ion-buttons>
+
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <div class="login-box">
+
+    <ion-grid align="center">
+      <ion-row>
+        <ion-col>
+
+          <div *ngIf="imageResponse.length === 0" clickable (click)="selectImage()">
+            <ion-skeleton-text animated style="width: 250px;height: 300px;border-radius: 8px;" *ngIf="!isimgLoaded"></ion-skeleton-text>
+          </div>
+          
+          <div *ngFor="let img of imageResponse">
+    
+            <div *ngIf="imageResponse.length >= 1">
+              <div>
+                <div>
+                  <ion-skeleton-text animated style="width: 250px;height: 300px;border-radius: 8px;" *ngIf="!isimgLoaded"></ion-skeleton-text>
+                  <img [hidden]="!isimgLoaded" src="{{img.image}}" alt="" srcset="" (load)="isimgLoaded = true">
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+    <br>
+
+    <div align="center">
+      <label for="disapear" align="center">
+        <ion-icon color="primary" slot="end" name="camera">
+          <input id="disapear" class="image-upload" type="file" multiple="false" accept="image/*" (change)="changeListener2($event)" align="center">
+        </ion-icon>
+      </label>
+    </div><br>
+    <div align="center">
+      <ion-progress-bar value="{{ uploadingprogress/100 }}"></ion-progress-bar>
+    </div>
+  </div>
+  
+  <br>
+  <form [formGroup]="RegisterForm" style="margin-left: 10px;margin-right: 10px;">
+  <ion-item class="input">
+    <ion-label position="floating" color="primary">What's on your mind</ion-label>
+    <ion-textarea rows="3" color="primary" formControlName="content" [(ngModel)]="content"></ion-textarea>
+</ion-item>
+</form><br>
+<ion-button expand="block" fill="outline" color="primary" (click)="addPost()" [disabled]="!RegisterForm.valid" clear>Post</ion-button><br>
+
+</ion-content>

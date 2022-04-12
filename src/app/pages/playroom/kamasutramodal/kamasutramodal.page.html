@@ -1,0 +1,56 @@
+<ion-content fullscreen>
+
+  <ion-item class="close-fake" lines="none" text-center>
+    <ion-button (click)="close()" fill="clear" color="light">
+      <ion-icon color="primary" name="close" slot="start"></ion-icon>
+      <p class="p">Back</p>
+    </ion-button>
+
+    <!-- <ion-button (click)="zoom(true)" fill="clear" color="light">
+      <ion-icon color="primary" name="add" slot="start"></ion-icon>
+      <p class="p">in</p>
+    </ion-button> -->
+
+    <!-- <ion-button (click)="zoom(false)" fill="clear" color="light">
+      <ion-icon color="primary" name="remove" slot="start"></ion-icon>
+      <p class="p">out</p>
+    </ion-button> -->
+  </ion-item>
+
+  <ion-slides [options]="sliderOpts" #slider>
+    <ion-slide>
+      <div class="swiper-zoom-container">
+        <img src="{{image}}">
+      </div>
+    </ion-slide>
+  </ion-slides>
+
+</ion-content>
+
+<ion-footer>
+  <ion-toolbar color="light">
+    <ion-buttons slot="start">
+      <ion-button color="medium" tappable (click)="presentAlertAddHeart()">
+        <ion-icon color="primary" slot="start" name="heart-outline"></ion-icon>
+      </ion-button>
+      <ion-button color="medium" tappable (click)="presentAlertAddDone()">
+        <ion-icon color="primary" slot="start" name="book-outline"></ion-icon>
+      </ion-button>
+      <ion-button color="medium" tappable (click)="presentAlertAddFavorate()">
+        <ion-icon color="primary" slot="start" name="star-outline"></ion-icon>
+      </ion-button>
+      <ion-button color="medium" tappable (click)="presentAlertAddHappy()">
+        <ion-icon color="primary" slot="start" name="happy-outline"></ion-icon>
+      </ion-button>
+      <ion-button color="medium" tappable (click)="presentAlertAddSad()">
+        <ion-icon color="primary" slot="start" name="sad-outline"></ion-icon>
+      </ion-button>
+      <!-- <ion-button color="medium" tappable (click)="addcomment()">
+        <ion-icon color="primary" slot="start" name="chatbox-outline"></ion-icon>
+      </ion-button> -->
+      <ion-button color="medium" tappable (click)="presentAlertAddPost()">
+        <ion-icon color="primary" slot="start" name="return-up-forward-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-footer>

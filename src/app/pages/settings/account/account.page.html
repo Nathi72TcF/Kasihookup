@@ -1,0 +1,86 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-icon name="arrow-back" (click)="goToSettings()" color="primary" vertical="end" slot="start" style="margin-left: 10px;"></ion-icon>
+    <ion-title color="primary">My Account</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+  <div class="login-box">
+
+    <!-- <img [src]="photo" > -->
+    <!-- <ion-avatar class="align">
+      <img src="photo">
+    </ion-avatar> -->
+
+    <div id="user-profile" class="align">
+      <div id="user-pic" class="align">
+          <img *ngIf="!profile.image" src="../../assets/images/User_Avatar.png" alt=""> 
+          <img *ngIf="profile.image" src="{{profile.image}}" alt="">
+      </div>
+    </div><br>
+
+    <div align="center">
+      <label for="disapear" align="center">
+        <ion-icon color="primary" slot="end" name="camera">
+          <input id="disapear" class="image-upload" type="file" multiple="false" accept="image/*" (change)="changeListener2($event)" align="center">
+        </ion-icon>
+      </label>
+    </div><br>
+    <div align="center">
+      <ion-progress-bar value="{{ uploadingprogress/100 }}"></ion-progress-bar>
+    </div><br>
+    <br>
+          <ion-item>
+            <h3 class="p">My Profile</h3>
+          </ion-item>
+          <ion-item>
+              <ion-label color="primary" position="floating">Name</ion-label>
+              <ion-input [(ngModel)]="profile.username" color="primary"></ion-input>
+          </ion-item>
+          <ion-item>
+              <ion-label color="primary" position="floating">Surname</ion-label>
+              <ion-input [(ngModel)]="profile.surnamez" color="primary"></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-label color="primary" position="floating">Gender</ion-label>
+            <p class="p">{{ profile.gender }}</p>
+          </ion-item>
+          <ion-item>
+            <ion-label color="primary" position="floating">Star Sign</ion-label>
+            <p class="p">{{ profile.startsign }}</p>
+          </ion-item>
+          <ion-item>
+            <ion-label color="primary" position="floating">Year of Birth</ion-label>
+            <ion-input [(ngModel)]="profile.year" color="primary"></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-label color="primary" position="floating">Cell Number</ion-label>
+            <ion-input  [(ngModel)]="profile.contact" maxlength="10" (keyup)="getPhoneInput($event)" color="primary"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label color="primary" position="floating">email</ion-label>
+          <p class="p">{{ profile.email }}</p>
+        </ion-item>
+        <ion-item>
+          <ion-label color="primary" position="floating">Location (Region)</ion-label>
+          <ion-input [(ngModel)]="profile.location" color="primary"></ion-input>
+        </ion-item>
+        <br>
+        <ion-item>
+          <h3 class="p">My Balance</h3>
+        </ion-item>
+        <ion-item>
+          <ion-label color="primary" position="floating">Account ID</ion-label>
+          <p class="p">Serial: {{ profile.tcfID }}</p>
+        </ion-item>
+        <ion-item>
+          <ion-label color="primary" position="floating">Account Balance</ion-label>
+          <p class="p">{{ profile.tcfCoin }} Coin's</p>
+        </ion-item>
+      <br>
+
+          <ion-button expand="block" fill="outline" color="primary" (click)="users()" clear>Update</ion-button>
+
+    </div>
+</ion-content>

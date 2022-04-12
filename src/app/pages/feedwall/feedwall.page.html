@@ -1,0 +1,134 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title color="primary">My Wall</ion-title>
+
+    <ion-buttons slot="end">
+      <!-- [routerLink]="['./post']" -->
+      <ion-button tappable [routerLink]="['./post']" routerDirection="forward">
+        <!-- <ion-icon slot="icon-only" color="primary" name="scan-outline"></ion-icon> -->
+        <ion-label color="primary">Upload Post</ion-label>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+    <ion-card *ngIf="post.length === 0" style="align-content: center;">
+      <ion-item lines="none">
+        <ion-avatar slot="start">
+          <ion-skeleton-text animated style="width: 50px;height: 50px;border-radius: 50px;"></ion-skeleton-text>
+        </ion-avatar>
+        <ion-label color="primary">
+          <ion-skeleton-text animated style="width:100px; border-radius: 8px;"></ion-skeleton-text><br>
+          <ion-skeleton-text animated style="width:150px; border-radius: 8px;"></ion-skeleton-text>
+        </ion-label>
+      </ion-item>
+  
+      <ion-card-content class="post-list-content">
+        <ion-skeleton-text animated style="width: 300px;height: 400px;border-radius: 8px;"></ion-skeleton-text><br>
+        <ion-skeleton-text animated style="width:200px; border-radius: 8px;"></ion-skeleton-text><br>
+        <ion-skeleton-text animated style="width:100px; border-radius: 8px;"></ion-skeleton-text>
+      </ion-card-content>
+    </ion-card>
+
+    <ion-list>
+      <ion-card *ngFor="let pic of post" class="align">
+        <ion-item lines="none">
+          <ion-avatar slot="start">
+            <!-- <ion-skeleton-text animated style="width: 300px;height: 400px;border-radius: 8px;" *ngIf="!pic.userimage"></ion-skeleton-text> -->
+            <img *ngIf="!pic.userimage" src="../../../assets/images/User_Avatar.png" alt=""> 
+            <img src="{{ pic.userimage }}" (ionImgDidLoad)="(pic.userimage = true)" tappable (click)="openPreview(pic.userimage)">
+          </ion-avatar>
+          <ion-label color="primary" [routerLink]="['./viewprofile', pic.userid]">
+            {{ pic.name }} {{ pic.surname }}
+            <p class="p">{{ pic.date | date: 'yyyy-MM-dd hh:mm: a'}}</p>
+            <!-- <p class="p">{{ datezz }}</p> -->
+          </ion-label>
+        </ion-item>
+    
+        <ion-card-content class="post-list-content" class="align">
+          <!-- <ion-skeleton-text animated style="width: 300px;height: 400px;border-radius: 8px;" *ngIf="!isimgLoaded"></ion-skeleton-text>
+          <img [hidden]="!isimgLoaded" src="{{ pic.image }}" (load)="isimgLoaded = true" tappable (click)="openPreview(pic.image)"> -->
+    
+          <ion-card-title class="align" color="primary" tappable [routerLink]="['./feedchat', pic.id]">"{{ pic.content }}"</ion-card-title>
+    
+          <ion-grid align="center">
+            <ion-col sizeLg="4" sizeMd="4" sizeXs="6">
+              <div *ngFor="let img of pic.image | slice:0:noOfItem" class="mage-container">
+                <div *ngIf="img.image.length === 1">
+                  <ion-skeleton-text animated style="width: 300px;height: 400px;border-radius: 8px;" *ngIf="!isimgLoaded"></ion-skeleton-text>
+                  <img [hidden]="!isimgLoaded" src="{{ img.image }}" alt="" srcset="" (load)="isimgLoaded = true" tappable (click)="openPreview(img.image)">
+                </div>
+        
+                <div *ngIf="img.image.length >= 2">
+                  <div>
+                    <div>
+                    <ion-skeleton-text animated style="width: 300px;height: 400px;border-radius: 8px;" *ngIf="!isimgLoaded"></ion-skeleton-text>
+                    <img [hidden]="!isimgLoaded" src="{{img.image }}" alt="" srcset="" (load)="isimgLoaded = true" tappable (click)="openPreview(img.image)">
+                  </div>
+                  </div>
+                </div>
+              </div>
+            </ion-col>
+          </ion-grid>
+        </ion-card-content>
+    
+        <ion-item lines="none" class="ion-no-padding" style="margin-left: 10px;">
+          <ion-buttons slot="start">
+            <!-- <ion-button color="medium" tappable (click)="getLikeId(pic.id)">
+              <ion-icon color="primary" slot="start" [name]="heartType"></ion-icon>
+            </ion-button> -->
+            <ion-button color="medium">
+              <ion-icon color="primary" slot="start" name="heart-outline"></ion-icon>
+              <small class="p">{{ pic.like }}</small>
+            </ion-button>
+            <ion-button color="medium" [routerLink]="['./feedchat', pic.id]">
+              <ion-icon color="primary" slot="start" name="chatbox-outline"></ion-icon>
+              <small class="p">{{ pic.comments }}</small>
+            </ion-button>
+          </ion-buttons>
+        </ion-item>
+      </ion-card>
+    
+    <div class="align">
+      <!-- <button class="btn btn btn-info btn-sm float-left" (click)="prevPage()"
+          [disabled]="disable_prev || !(pagination_clicked_count>0)">Previous</button> <b>Page no: {{pagination_clicked_count+1}}</b>
+        <button class="btn btn btn-info btn-sm float-right" (click)="nextPage()" [disabled]="disable_next">Next</button> -->
+
+        <ion-button size="small" (click)="prevPage()" [disabled]="disable_prev || !(pagination_clicked_count>0)">Previous</ion-button>
+        <b style="color: #4c8fa3; padding-top: 2px;">Page no: {{pagination_clicked_count+1}}</b>
+        <ion-button size="small" (click)="nextPage()" [disabled]="disable_next">Next</ion-button>
+    </div>
+
+    <div *ngIf="agentchat.length === 0">
+      <ion-fab horizontal="end" vertical="bottom" slot="fixed">
+        <ion-fab-button color="primary">
+            <ion-icon name="headset"></ion-icon>
+        </ion-fab-button>
+      ​
+      <ion-fab-list side="start">
+          <ion-button size="small" tappable (click)="addmessage()">
+            <ion-icon name="mic"></ion-icon><small>Talk to Us</small>
+      ​    </ion-button>
+      </ion-fab-list>
+      </ion-fab>
+    </div>
+
+    <div *ngIf="agentchatNo >= 1">
+      <ion-fab horizontal="end" vertical="bottom" slot="fixed">
+        <ion-fab-button color="primary">
+            <ion-icon name="headset"></ion-icon>
+        </ion-fab-button>
+
+      ​<div *ngFor="let chatid of agentchat">
+      <ion-fab-list side="start">
+          <ion-button size="small" tappable [routerLink]="['./../agentmessage/chatagentmessage', chatid.chatid]" routerDirection="forward">
+            <ion-icon name="mic"></ion-icon><small>Talk to Us</small>
+      ​    </ion-button>
+      </ion-fab-list>
+      </div>
+      </ion-fab>
+    </div>
+  </ion-list>
+  
+</ion-content>

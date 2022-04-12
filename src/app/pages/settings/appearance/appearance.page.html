@@ -1,0 +1,26 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-icon name="arrow-back" (click)="goToSettings()" color="primary" vertical="end" slot="start" style="margin-left: 10px;"></ion-icon>
+    <ion-title color="primary">Appearance</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+  <ion-list>
+    <ion-radio-group>
+      <ion-list-header>
+        <ion-label color="primary">Modes</ion-label>
+      </ion-list-header>
+
+      <ion-item lines="none">
+        <ion-label color="primary">Light</ion-label>
+        <ion-radio slot="end" (click)="toggleDarkTheme()"></ion-radio>
+      </ion-item>
+
+      <ion-item lines="none">
+        <ion-label color="primary">Dark</ion-label>
+        <ion-radio slot="end" (click)="toggleDarkTheme()"></ion-radio>
+      </ion-item>
+    </ion-radio-group>
+  </ion-list>
+</ion-content>

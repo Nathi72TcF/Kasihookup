@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "1012700629802",
+    "project_id": "kasihookup",
+    "storage_bucket": "kasihookup.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1012700629802:android:9b89fde96211b8fb1eac53",
+        "android_client_info": {
+          "package_name": "com.kasihookup.tcf"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1012700629802-20lq4octm0doamnit2o7q6eo377hccpp.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAwSetwp7BRflvPPvIgbI3xIAytvnCkyYM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1012700629802-20lq4octm0doamnit2o7q6eo377hccpp.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

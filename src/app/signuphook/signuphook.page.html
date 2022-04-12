@@ -1,0 +1,147 @@
+
+<ion-header>
+  <ion-toolbar>
+    <ion-icon color="primary" name="arrow-back" vertical="end" slot="start" style="margin-left: 10px;" [routerLink]="['/login']"></ion-icon>
+    <ion-title class="aligned" color="primary"><b>Register</b></ion-title>
+ </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="login-box">
+
+    <div id="user-profile" class="align">
+      <div id="user-pic" class="align">
+        <img *ngIf="!image" src="../../assets/images/User_Avatar.png" alt=""> 
+        <img *ngIf="image" src="{{image}}" alt="">
+      </div>
+    </div><br>
+
+    <div align="center">
+      <label for="disapear" align="center">
+        <ion-icon color="primary" slot="end" name="camera">
+          <input id="disapear" class="image-upload" type="file" multiple="false" accept="image/*" (change)="changeListener2($event)" align="center">
+        </ion-icon>
+      </label>
+    </div><br>
+    <div align="center">
+      <ion-progress-bar value="{{ uploadingprogress/100 }}"></ion-progress-bar>
+    </div>
+      
+      <br>
+
+      <form [formGroup]="RegisterForm" style="margin-left: 10px;margin-right: 10px;">
+          <ion-item>
+            <p style="color: #4c8fa3;">Personal Infor</p>
+          </ion-item>
+          <ion-item>
+              <ion-label position="floating" color="primary">Name</ion-label>
+              <ion-input color="primary" formControlName="name" [(ngModel)]="name"></ion-input>
+          </ion-item>
+          <ion-item>
+              <ion-label color="primary" position="floating">Surname</ion-label>
+              <ion-input color="primary" formControlName="surname" [(ngModel)]="surname"></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-label color="primary" position="floating">Contact</ion-label>
+            <ion-input color="primary" formControlName="contact" [(ngModel)]="contact" maxlength="10" (keyup)="getPhoneInput($event)"></ion-input>
+        </ion-item>
+        <ion-item >
+          <ion-icon style="color:#4c8fa3; margin-right: 5px" name="person-circle-outline"></ion-icon>
+          <ion-label color="primary" position="floating">Gender</ion-label>
+          <ion-select interface="popover" [interfaceOptions]="customActionSheetOptions" [ngModelOptions]="{standalone: true}" style="text-align: center" (ionChange)="setGender($event)" [(ngModel)]="gender">
+              <ion-select-option value="Female">Female</ion-select-option>
+              <!-- <ion-select-option value="Male">Male</ion-select-option> -->
+          </ion-select>
+        </ion-item>
+        <ion-item>
+          <ion-label color="primary" position="floating">Location (Kasi)</ion-label>
+          <ion-input color="primary" formControlName="location" [(ngModel)]="location"></ion-input>
+      </ion-item>
+      <ion-item >
+        <ion-icon style="color:#4c8fa3; margin-right: 5px" name="person-circle-outline"></ion-icon>
+        <ion-label color="primary" position="floating">Star Sign</ion-label>
+        <ion-select interface="popover" [interfaceOptions]="customActionSheetOptions1" [ngModelOptions]="{standalone: true}" style="text-align: center" (ionChange)="setStarSign($event)" [(ngModel)]="startsign">
+            <ion-select-option value="Aries">Aries Mar 21 - Apr 20</ion-select-option>
+            <ion-select-option value="Taurus">Taurus Apr 21 - May 20</ion-select-option>
+            <ion-select-option value="Gemini">Gemini May 21 - Jun 20</ion-select-option>
+            <ion-select-option value="Cancer">Cancer Jun 21 - Jul 22</ion-select-option>
+            <ion-select-option value="Leo">Leo Jul 23 - Aug 22</ion-select-option>
+            <ion-select-option value="Virgo">Virgo Aug 23 - Sep 22</ion-select-option>
+            <ion-select-option value="Libra">Libra Sep 23 - Oct 22</ion-select-option>
+            <ion-select-option value="Scorpio">Scorpio Oct 23 - Nov 22</ion-select-option>
+            <ion-select-option value="Sagittarius">Sagittarius Nov 23 - Dec 21</ion-select-option>
+            <ion-select-option value="Capricorn">Capricorn Dec 22 - Jan 19</ion-select-option>
+            <ion-select-option value="Aquarius">Aquarius Jan 20 - Feb 19</ion-select-option>
+            <ion-select-option value="Pisces">Pisces Feb 20 - Mar 20</ion-select-option>
+        </ion-select>
+      </ion-item>
+      <ion-item>
+        <ion-label color="primary" position="floating">Year of Birth</ion-label>
+        <ion-input color="primary" formControlName="year" maxlength="4" [(ngModel)]="year"></ion-input>
+      </ion-item><br><br>
+      <ion-item>
+        <!-- <ion-label position="floating" color="primary">Hook Up Infor</ion-label> -->
+        <p style="color: #4c8fa3;">Hook Up Infor</p>
+      </ion-item>
+      <ion-item>
+        <ion-label position="floating" color="primary">Nickname</ion-label>
+        <ion-input color="primary" formControlName="hookname" [(ngModel)]="hookname"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="floating" color="primary">Hook Location</ion-label>
+        <ion-input color="primary" formControlName="hooklocation" [(ngModel)]="hooklocation"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-icon style="color:#4c8fa3; margin-right: 5px" name="person-circle-outline"></ion-icon>
+        <ion-label color="primary" position="floating">Do you Host</ion-label>
+      <ion-select interface="popover" [interfaceOptions]="customActionSheetOptions2" [ngModelOptions]="{standalone: true}" style="text-align: center" (ionChange)="setHost($event)" [(ngModel)]="hookhost">
+        <ion-select-option value="Yes">Yes</ion-select-option>
+        <ion-select-option value="No">No</ion-select-option>
+      </ion-select>
+      </ion-item>
+      <ion-item>
+        <ion-label position="floating" color="primary">Hook Discription</ion-label>
+        <ion-input color="primary" formControlName="hookcontent" [(ngModel)]="hookcontent"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="floating" color="primary">Hook for 30 min (in Rands)</ion-label>
+        <ion-input color="primary" type="number" formControlName="hook30mn" [(ngModel)]="hook30mn"></ion-input>
+      </ion-item>
+      <!-- <ion-item> -->
+        <ion-item>
+          <ion-label position="floating" color="primary">Hook for 1 Hour (in Rands)</ion-label>
+          <ion-input color="primary" type="number" formControlName="hook1hr" [(ngModel)]="hook1hr"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label position="floating" color="primary">Hook for 2 Hour (in Rands)</ion-label>
+          <ion-input color="primary" type="number" formControlName="hook2hr" [(ngModel)]="hook2hr"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label position="floating" color="primary">Hook for Whole Night (in Rands)</ion-label>
+          <ion-input color="primary" type="number" formControlName="hooknight" [(ngModel)]="hooknight"></ion-input>
+        </ion-item><br>
+        <ion-item>
+        <!-- <ion-label position="floating" color="primary">User Creditials</ion-label> -->
+        <p style="color: #4c8fa3;">User Creditials</p>
+      </ion-item>
+        <ion-item lines="inset" color="none">
+          <ion-label color="primary" position="floating">Email Address</ion-label>
+          <ion-input color="primary" formControlName="email" [(ngModel)]="email"></ion-input>
+        </ion-item>
+          <ion-item lines="inset" color="none">
+              <ion-label color="primary" position="floating">Password</ion-label>
+              <ion-input color="primary" formControlName="password" [type]="passwordType" name="password" clearOnEdit="false" [(ngModel)]="password"></ion-input>
+              <ion-icon [name]="passwordIcon" color="primary" slot="end" (click)='hideShowPassword()'></ion-icon>
+          </ion-item>
+          <ion-item lines="inset" color="none">
+              <ion-label color="primary" position="floating">Confirm Password</ion-label>
+              <ion-input color="primary" formControlName="confirmpassword" [type]="passwordType" name="password" clearOnEdit="false" [(ngModel)]="confirmpassword"></ion-input>
+              <ion-icon [name]="passwordIcon" color="primary" slot="end" (click)='hideShowPassword()'></ion-icon>
+          </ion-item>
+        </form>
+    </div>
+
+      <ion-button expand="block" fill="outline" color="primary" (click)="signup()" [disabled]="!RegisterForm.valid" clear>Sign Up</ion-button><br>
+
+
+</ion-content>

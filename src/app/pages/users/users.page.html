@@ -1,0 +1,307 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-icon color="primary" name="arrow-back" vertical="end" slot="start" style="margin-left: 10px;" (click)="goToProfile()"></ion-icon>
+    <ion-title color="primary">Users</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+  <ion-toolbar>
+
+    <ion-segment 
+    value="all" 
+    color="tertiary" 
+    scrollable="true"
+    mode="ios"
+    [(ngModel)]="segmentModel" 
+    (ionChange)="segmentChanged($event)">
+
+      <ion-segment-button value="clients">
+        <ion-label color="primary">Clients</ion-label>
+      </ion-segment-button>
+
+      <ion-segment-button value="hookups">
+        <ion-label color="primary">Hook-upz</ion-label>
+      </ion-segment-button>
+
+      <ion-segment-button value="females">
+        <ion-label color="primary">Females</ion-label>
+      </ion-segment-button>
+
+    </ion-segment>
+    
+  </ion-toolbar>
+
+  <div *ngIf="segmentModel === 'clients'">
+    <ion-list>
+      <ion-toolbar>
+        <ion-title color="primary">No of Users {{ usersNo }}</ion-title>
+        <ion-title color="primary">No of Males {{ malesNo }}</ion-title>
+        <ion-title color="primary">No of Females {{ femaleNo }}</ion-title>
+      </ion-toolbar><br>
+      
+      <ion-toolbar>
+        <div class='count' *ngIf="searchResults.length > 0"></div>
+        <ion-searchbar color="primary" name="search" placeholder="Search by Name" (ionInput)="getClients($event)"></ion-searchbar>
+      </ion-toolbar>
+  
+      <div *ngIf="searchResults.length > 0">
+        <ion-card *ngFor="let pic of searchResults" >
+          <ion-card-content>
+            <ion-item lines="none">
+              <img *ngIf="!pic.image" src="../../../assets/images/User_Avatar.png" alt=""> 
+              <img src="{{ pic.image }}" tappable (click)="openPreview(pic.image)">
+            </ion-item>
+            <ion-item lines="none">
+              <h2 style="color: #4c8fa3">Name : {{ pic.name }}</h2>
+            </ion-item>
+            <ion-item lines="none">
+              <h2 style="color: #4c8fa3">Surname : {{ pic.surname }}</h2>
+            </ion-item>
+            <ion-item lines="none">
+              <h2 style="color: #4c8fa3">Contact : {{ pic.contact }}</h2>
+            </ion-item>
+            <ion-item lines="none">
+              <h2 style="color: #4c8fa3">Gender : {{ pic.gender }}</h2>
+            </ion-item>
+            <ion-item lines="none">
+              <h2 style="color: #4c8fa3">Location : {{ pic.location }}</h2>
+            </ion-item>
+            <ion-item lines="none">
+              <h2 style="color: #4c8fa3">Star Sign : {{ pic.startsign }}</h2>
+            </ion-item>
+            <ion-item lines="none">
+              <h2 style="color: #4c8fa3">Year : {{ pic.year }}</h2>
+            </ion-item>
+          </ion-card-content><br>
+  
+        </ion-card>
+      </div>
+  
+        <ion-card *ngFor="let pic of users" >
+          <ion-card-content>
+            <ion-item lines="none">
+              <img *ngIf="!pic.image" src="../../../assets/images/User_Avatar.png" alt=""> 
+              <img src="{{ pic.image }}" tappable (click)="openPreview(pic.image)">
+            </ion-item>
+            <ion-item lines="none">
+              <h2 style="color: #4c8fa3">Name : {{ pic.name }}</h2>
+            </ion-item>
+            <ion-item lines="none">
+              <h2 style="color: #4c8fa3">Surname : {{ pic.surname }}</h2>
+            </ion-item>
+            <ion-item lines="none">
+              <h2 style="color: #4c8fa3">Contact : {{ pic.contact }}</h2>
+            </ion-item>
+            <ion-item lines="none">
+              <h2 style="color: #4c8fa3">Gender : {{ pic.gender }}</h2>
+            </ion-item>
+            <ion-item lines="none">
+              <h2 style="color: #4c8fa3">Location : {{ pic.location }}</h2>
+            </ion-item>
+            <ion-item lines="none">
+              <h2 style="color: #4c8fa3">Star Sign : {{ pic.startsign }}</h2>
+            </ion-item>
+            <ion-item lines="none">
+              <h2 style="color: #4c8fa3">Year : {{ pic.year }}</h2>
+            </ion-item>
+          </ion-card-content><br>
+  
+        </ion-card>
+  
+      <ion-infinite-scroll therehold='100px' (ionInfinite)="loadMore($event)">
+        <ion-infinite-scroll-content 
+          color="primary"
+          loadingSpinner="bubbles" 
+          loadingText="Loading more Users...">
+        </ion-infinite-scroll-content>
+      </ion-infinite-scroll>
+  
+    </ion-list>
+  </div>
+
+  <div *ngIf="segmentModel === 'hookups'">
+    <ion-list>
+      <ion-toolbar>
+        <ion-title color="primary">No of Hookups {{ girlsNo }}</ion-title>
+        <ion-title color="primary">No of Males {{ malesNo }}</ion-title>
+        <ion-title color="primary">No of Females {{ femaleNo }}</ion-title>
+      </ion-toolbar><br>
+      
+      <ion-toolbar>
+        <div class='count' *ngIf="girlssearchResults.length > 0"></div>
+        <ion-searchbar color="primary" name="search" placeholder="Search by Name" (ionInput)="getHookup($event)"></ion-searchbar>
+      </ion-toolbar>
+  
+      <div *ngIf="girlssearchResults.length > 0">
+        <ion-card *ngFor="let pic of girlssearchResults" >
+          <ion-card-content>
+            <ion-item lines="none">
+              <img *ngIf="!pic.image" src="../../../assets/images/User_Avatar.png" alt=""> 
+              <img src="{{ pic.image }}" tappable (click)="openPreview(pic.image)">
+            </ion-item>
+            <ion-item lines="none">
+              <h2 style="color: #4c8fa3">Name : {{ pic.name }}</h2>
+            </ion-item>
+            <ion-item lines="none">
+              <h2 style="color: #4c8fa3">Surname : {{ pic.surname }}</h2>
+            </ion-item>
+            <ion-item lines="none">
+              <h2 style="color: #4c8fa3">Contact : {{ pic.contact }}</h2>
+            </ion-item>
+            <ion-item lines="none">
+              <h2 style="color: #4c8fa3">Gender : {{ pic.gender }}</h2>
+            </ion-item>
+            <ion-item lines="none">
+              <h2 style="color: #4c8fa3">Location : {{ pic.location }}</h2>
+            </ion-item>
+            <ion-item lines="none">
+              <h2 style="color: #4c8fa3">Star Sign : {{ pic.startsign }}</h2>
+            </ion-item>
+            <ion-item lines="none">
+              <h2 style="color: #4c8fa3">Year : {{ pic.year }}</h2>
+            </ion-item>
+          </ion-card-content><br>
+          <ion-item lines="none" class="ion-no-padding" style="margin-left: 10px;">
+            <ion-buttons slot="start">
+              <ion-button color="medium" (click)="presentAlertDelete(pic.userid)">
+                <ion-icon style="color: #fd0000" slot="start" name="trash"></ion-icon>
+              </ion-button>
+            </ion-buttons>
+          </ion-item>
+        </ion-card>
+      </div>
+  
+        <ion-card *ngFor="let pic of girls" >
+          <ion-card-content>
+            <ion-item lines="none">
+              <img *ngIf="!pic.image" src="../../../assets/images/User_Avatar.png" alt=""> 
+              <img src="{{ pic.image }}" tappable (click)="openPreview(pic.image)">
+            </ion-item>
+            <ion-item lines="none">
+              <h2 style="color: #4c8fa3">Name : {{ pic.name }}</h2>
+            </ion-item>
+            <ion-item lines="none">
+              <h2 style="color: #4c8fa3">Surname : {{ pic.surname }}</h2>
+            </ion-item>
+            <ion-item lines="none">
+              <h2 style="color: #4c8fa3">Contact : {{ pic.contact }}</h2>
+            </ion-item>
+            <ion-item lines="none">
+              <h2 style="color: #4c8fa3">Gender : {{ pic.gender }}</h2>
+            </ion-item>
+            <ion-item lines="none">
+              <h2 style="color: #4c8fa3">Location : {{ pic.location }}</h2>
+            </ion-item>
+            <ion-item lines="none">
+              <h2 style="color: #4c8fa3">Star Sign : {{ pic.startsign }}</h2>
+            </ion-item>
+            <ion-item lines="none">
+              <h2 style="color: #4c8fa3">Year : {{ pic.year }}</h2>
+            </ion-item>
+          </ion-card-content><br>
+          <ion-item lines="none" class="ion-no-padding" style="margin-left: 10px;">
+            <ion-buttons slot="start">
+              <ion-button color="medium" (click)="presentAlertDelete(pic.userid)">
+                <ion-icon style="color: #fd0000" slot="start" name="trash"></ion-icon>
+              </ion-button>
+            </ion-buttons>
+          </ion-item>
+        </ion-card>
+  
+    </ion-list>
+  </div>
+
+  <div *ngIf="segmentModel === 'females'">
+    <ion-list>
+      <ion-toolbar>
+        <ion-title color="primary">No of Hookups {{ girlsNo }}</ion-title>
+        <ion-title color="primary">No of Males {{ malesNo }}</ion-title>
+        <ion-title color="primary">No of Females {{ femaleNo }}</ion-title>
+      </ion-toolbar><br>
+      
+      <ion-toolbar>
+        <div class='count' *ngIf="femalesearchResults.length > 0"></div>
+        <ion-searchbar color="primary" name="search" placeholder="Search by Name" (ionInput)="getHookup($event)"></ion-searchbar>
+      </ion-toolbar>
+  
+      <div *ngIf="femalesearchResults.length > 0">
+        <ion-card *ngFor="let pic of femalesearchResults" >
+          <ion-card-content>
+            <ion-item lines="none">
+              <img *ngIf="!pic.image" src="../../../assets/images/User_Avatar.png" alt=""> 
+              <img src="{{ pic.image }}" tappable (click)="openPreview(pic.image)">
+            </ion-item>
+            <ion-item lines="none">
+              <h2 style="color: #4c8fa3">Name : {{ pic.name }}</h2>
+            </ion-item>
+            <ion-item lines="none">
+              <h2 style="color: #4c8fa3">Surname : {{ pic.surname }}</h2>
+            </ion-item>
+            <ion-item lines="none">
+              <h2 style="color: #4c8fa3">Contact : {{ pic.contact }}</h2>
+            </ion-item>
+            <ion-item lines="none">
+              <h2 style="color: #4c8fa3">Gender : {{ pic.gender }}</h2>
+            </ion-item>
+            <ion-item lines="none">
+              <h2 style="color: #4c8fa3">Location : {{ pic.location }}</h2>
+            </ion-item>
+            <ion-item lines="none">
+              <h2 style="color: #4c8fa3">Star Sign : {{ pic.startsign }}</h2>
+            </ion-item>
+            <ion-item lines="none">
+              <h2 style="color: #4c8fa3">Year : {{ pic.year }}</h2>
+            </ion-item>
+          </ion-card-content><br>
+          <ion-item lines="none" class="ion-no-padding" style="margin-left: 10px;">
+            <ion-buttons slot="start">
+              <ion-button color="medium" (click)="presentAlertDelete(pic.userid)">
+                <ion-icon style="color: #fd0000" slot="start" name="trash"></ion-icon>
+              </ion-button>
+            </ion-buttons>
+          </ion-item>
+        </ion-card>
+      </div>
+  
+        <ion-card *ngFor="let pic of female" >
+          <ion-card-content>
+            <ion-item lines="none">
+              <img *ngIf="!pic.image" src="../../../assets/images/User_Avatar.png" alt=""> 
+              <img src="{{ pic.image }}" tappable (click)="openPreview(pic.image)">
+            </ion-item>
+            <ion-item lines="none">
+              <h2 style="color: #4c8fa3">Name : {{ pic.name }}</h2>
+            </ion-item>
+            <ion-item lines="none">
+              <h2 style="color: #4c8fa3">Surname : {{ pic.surname }}</h2>
+            </ion-item>
+            <ion-item lines="none">
+              <h2 style="color: #4c8fa3">Contact : {{ pic.contact }}</h2>
+            </ion-item>
+            <ion-item lines="none">
+              <h2 style="color: #4c8fa3">Gender : {{ pic.gender }}</h2>
+            </ion-item>
+            <ion-item lines="none">
+              <h2 style="color: #4c8fa3">Location : {{ pic.location }}</h2>
+            </ion-item>
+            <ion-item lines="none">
+              <h2 style="color: #4c8fa3">Star Sign : {{ pic.startsign }}</h2>
+            </ion-item>
+            <ion-item lines="none">
+              <h2 style="color: #4c8fa3">Year : {{ pic.year }}</h2>
+            </ion-item>
+          </ion-card-content><br>
+          <ion-item lines="none" class="ion-no-padding" style="margin-left: 10px;">
+            <ion-buttons slot="start">
+              <ion-button color="medium" (click)="presentAlertDelete(pic.userid)">
+                <ion-icon style="color: #fd0000" slot="start" name="trash"></ion-icon>
+              </ion-button>
+            </ion-buttons>
+          </ion-item>
+        </ion-card>
+  
+    </ion-list>
+  </div>
+
+</ion-content>

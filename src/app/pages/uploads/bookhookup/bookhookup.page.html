@@ -1,0 +1,102 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-icon name="arrow-back" vertical="end" slot="start" style="margin-left: 10px;" (click)="close()"></ion-icon>
+    <ion-title >Bookings</ion-title>
+  </ion-toolbar>
+
+  <div class="spec-details">
+
+    <ion-item color="none" lines="none">
+        <ion-avatar slot="end" *ngFor="let img of imagePost">
+          <div *ngFor="let image of img.image | slice:0">
+            <img src="{{ image.image }}">
+          </div>
+        </ion-avatar>
+          
+      <div class="header-subtitle">
+    <span class="header-title">{{ hookprofile.name }} </span><br>
+        
+        <span id="role">Location: {{hookprofile.location}}  </span><br>
+        <span class="organization">Host: {{ hookprofile.host }}</span><br>
+       <span id="email"> {{ hookprofile.content }}</span>
+       <ion-row>
+        <!-- <ion-button color="medium">
+          <ion-icon style="color: #ff0000" slot="start" name="heart-outline"></ion-icon>
+          <small class="p">{{ hookprofile.like) }}</small>
+        </ion-button> -->
+        </ion-row>   
+    </div>
+    </ion-item>
+  </div>
+</ion-header>
+
+<ion-content>
+
+  <ion-item>
+
+    <!-- <ion-list>
+      <ion-radio-group  [(ngModel)]="zaka" (ionSelect)="checkValue(event)">
+
+        <ion-list-header>
+          Hookup Prices
+        </ion-list-header>
+
+        <ion-item>
+           <ion-label>30 Minutes</ion-label>
+           <ion-radio [checked]="option.checked" (ionBlur)="optionBlur(option)" value="30min"></ion-radio>
+        </ion-item>
+
+        <ion-item>
+           <ion-label>1 Hour</ion-label>
+           <ion-radio [checked]="option.checked" (ionBlur)="optionBlur(option)" value="1Hr"></ion-radio>
+        </ion-item>
+
+        <ion-item>
+          <ion-label>2 Hour</ion-label>
+          <ion-radio [checked]="option.checked" (ionBlur)="optionBlur(option)" value="2Hr"></ion-radio>
+       </ion-item>
+
+       <ion-item>
+        <ion-label>Whole Night</ion-label>
+        <ion-radio [checked]="option.checked" (ionBlur)="optionBlur(option)" value="night"></ion-radio>
+     </ion-item> 
+
+      </ion-radio-group>
+ </ion-list> -->
+
+ <ion-list>
+  <ion-radio-group allow-empty-selection="true" name="radio-group" (ionChange)="radioGroupChange($event)" #radioGroup>
+
+    <ion-list-header>
+      <ion-label color="primary">HookUp Prices</ion-label>
+    </ion-list-header>
+
+    <ion-item *ngFor="let item of radio_list" (ionFocus)="radioFocus()" (ionSelect)="radioSelect($event)"
+      (ionBlur)="radioBlur()">
+      <ion-label color="primary">{{item.text}}</ion-label>
+      <ion-radio slot="start" name="{{item.name}}" value="{{item.value}}" 
+        color="{{item.color}}" disabled="{{item.disabled}}"></ion-radio> <!-- checked="{{item.checked}}" -->
+    </ion-item>
+
+  </ion-radio-group>
+  </ion-list>
+
+  </ion-item>
+
+  <ion-item>
+    <ion-label color="primary">Price To Be Pay</ion-label>
+  </ion-item>
+
+  <ion-item>
+    <ion-label color="primary">Hook Price To Be Pay</ion-label>
+    <ion-label color="primary">R{{ Total }}</ion-label>
+  </ion-item>
+
+  <form [formGroup]="RegisterForm" style="margin-left: 10px;margin-right: 10px;">
+    <div class="comment">
+      <ion-textarea  style="background: #dedede;" formControlName="comment" [(ngModel)]="comment" placeholder="Write your comment..."></ion-textarea>
+      <ion-button id="btn" fill="clear" [disabled]="!RegisterForm.valid" (click)="booking()">Book</ion-button>
+  </div>
+  </form>
+  
+</ion-content>

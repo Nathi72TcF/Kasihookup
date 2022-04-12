@@ -1,0 +1,132 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-icon color="primary" name="arrow-back" vertical="end" slot="start" style="margin-left: 10px;" (click)="goToProfile()"></ion-icon>
+    <ion-title color="primary">Hook Manang</ion-title>
+
+    <ion-buttons slot="end">
+      <ion-button color="medium" tappable (click)="openCalender()">
+        <ion-icon color="primary" slot="end" name="cash-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="login-box">
+    <!-- <ion-item>
+      <h3 class="p">My Profile Picture</h3>
+    </ion-item> -->
+  <div *ngIf="imageResponse.length === 0">
+    <ion-skeleton-text animated style="width: 300px;height: 400px;border-radius: 8px;" *ngIf="!isimgLoaded"></ion-skeleton-text>
+  </div>
+  
+  <div *ngFor="let img of imageResponse">
+    <div *ngIf="imageResponse.length === 1">
+      <ion-skeleton-text animated style="width: 300px;height: 400px;border-radius: 8px;" *ngIf="!isimgLoaded"></ion-skeleton-text>
+      <img [hidden]="!isimgLoaded" src="{{ img.image }}" alt="" srcset="" (load)="isimgLoaded = true">
+    </div>
+
+    <div *ngIf="imageResponse.length >= 2">
+      <div>
+        <div>
+          <ion-skeleton-text animated style="width: 300px;height: 400px;border-radius: 8px;" *ngIf="!isimgLoaded"></ion-skeleton-text>
+          <img [hidden]="!isimgLoaded" src="{{img.image}}" alt="" srcset="" (load)="isimgLoaded = true">
+        </div>
+      </div>
+    </div>
+  </div>
+
+    <div align="center">
+      <label for="disapear" align="center">
+        <ion-icon color="primary" slot="end" name="camera">
+          <input id="disapear" class="image-upload" type="file" multiple="false" accept="image/*" (change)="changeListener2($event)" align="center">
+        </ion-icon>
+      </label>
+    </div><br>
+    <div align="center">
+      <ion-progress-bar value="{{ uploadingprogress/100 }}"></ion-progress-bar>
+    </div><br>
+    <br>
+
+    <ion-item>
+      <h3 class="p">My Images</h3>
+    </ion-item>
+
+    <ion-card *ngFor="let pic of girls" class="align">  
+      <ion-card-content class="post-list-content" class="align">
+        <div *ngFor="let img of pic.image">
+          <div *ngIf="imagePostNo === 1">
+            <ion-skeleton-text animated style="width: 300px;height: 400px;border-radius: 8px;" *ngIf="!isimgLoaded"></ion-skeleton-text>
+            <img [hidden]="!isimgLoaded" src="{{ img.image }}" alt="" srcset="" (load)="isimgLoaded = true" tappable (click)="openPreview(img.image)">
+          </div>
+  
+          <div *ngIf="imagePostNo >= 2">
+            <div class="images">
+              <div class="one-image">
+                <ion-skeleton-text animated style="width: 300px;height: 400px;border-radius: 8px;" *ngIf="!isimgLoaded"></ion-skeleton-text>
+                <img [hidden]="!isimgLoaded" src="{{img.image}}" alt="" srcset="" (load)="isimgLoaded = true" tappable (click)="openPreview(img.image)">
+              </div>
+            </div>
+          </div>
+        </div>
+        <br>
+      </ion-card-content>
+    </ion-card><br>
+
+      <ion-item>
+        <h3 class="p">Hookup Profile</h3>
+      </ion-item>
+      <ion-item>
+          <ion-label color="primary" position="floating">Name</ion-label>
+          <ion-input [(ngModel)]="hookprofile.name" color="primary"></ion-input>
+      </ion-item>
+      <ion-item>
+          <ion-label color="primary" position="floating">Location</ion-label>
+          <ion-input [(ngModel)]="hookprofile.location" color="primary"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label color="primary" position="floating">Contact Number</ion-label>
+        <ion-input  [(ngModel)]="hookprofile.contact" maxlength="10" (keyup)="getPhoneInput($event)" color="primary"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label color="primary" position="floating">Host</ion-label>
+        <ion-input [(ngModel)]="hookprofile.host" color="primary"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label color="primary" position="floating">Discription</ion-label>
+        <ion-textarea rows="3" [(ngModel)]="hookprofile.content" color="primary"></ion-textarea>
+      </ion-item>
+      <ion-item>
+        <ion-label color="primary" position="floating">Price for 30 min (in Rands)</ion-label>
+        <ion-input [(ngModel)]="hookprice30" (keyup)="hook30min($event)" color="primary"></ion-input>
+        <ion-icon color="primary" name="save" vertical="end" slot="end" style="margin-left: 10px;" (click)="upDate30Min()"></ion-icon>
+      </ion-item>
+      <ion-item>
+        <ion-label color="primary" position="floating">Price for 1 Hour (in Rands)</ion-label>
+        <ion-input [(ngModel)]="hookprice1hr" (keyup)="hook1hr($event)" color="primary"></ion-input>
+        <ion-icon color="primary" name="save" vertical="end" slot="end" style="margin-left: 10px;" (click)="upDate1hr()"></ion-icon>
+      </ion-item>
+      <ion-item>
+        <ion-label color="primary" position="floating">Price for 2 Hours (in Rands)</ion-label>
+        <ion-input [(ngModel)]="hookprice2hr" (keyup)="hook2hr($event)" color="primary"></ion-input>
+        <ion-icon color="primary" name="save" vertical="end" slot="end" style="margin-left: 10px;" (click)="upDate2hr()"></ion-icon>
+      </ion-item>
+      <ion-item>
+        <ion-label color="primary" position="floating">Price for Whole Night (in Rands)</ion-label>
+        <ion-input [(ngModel)]="hookpricenight" (keyup)="hooknight($event)" color="primary"></ion-input>
+        <ion-icon color="primary" name="save" vertical="end" slot="end" style="margin-left: 10px;" (click)="upDatenight()"></ion-icon>
+      </ion-item>
+      <ion-item>
+        <ion-label color="primary" position="floating">Current Likes</ion-label>
+        <ion-input [(ngModel)]="hookprofile.like" color="primary"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label color="primary" position="floating">Current Comments</ion-label>
+        <ion-input [(ngModel)]="hookprofile.comments" color="primary"></ion-input>
+      </ion-item>
+
+      <br>
+      <ion-button expand="block" fill="outline" color="primary" (click)="update()" clear>Update</ion-button>
+
+  </div>
+</ion-content>

@@ -1,0 +1,101 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title>Hook Up Chart</ion-title>
+    <ion-icon name="arrow-back" (click)="goToHookups()" vertical="end" slot="start" style="margin-left: 10px;"></ion-icon>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+
+  <ion-card *ngFor="let pic of post" class="align">
+    <ion-card-header>
+      <ion-card-subtitle class="align" color="primary">Hook Up In {{ pic.location }}</ion-card-subtitle>
+      <!-- <ion-card-title class="align" color="primary">Hook Up In {{ pic.location }}</ion-card-title> -->
+    </ion-card-header>
+    <ion-card-content class="post-list-content" class="align">
+      <div *ngFor="let img of pic.image" class="mage-container">
+        <div *ngIf="img.image.length === 1">
+          <ion-skeleton-text animated style="width: 300px;height: 400px;border-radius: 8px;" *ngIf="!isimgLoaded"></ion-skeleton-text>
+          <img [hidden]="!isimgLoaded" src="{{ img.image }}" alt="" srcset="" (load)="isimgLoaded = true" tappable (click)="openPreview(img.image)">
+        </div>
+
+        <div *ngIf="img.image.length >= 2">
+          <div>
+            <div>
+            <ion-skeleton-text animated style="width: 300px;height: 400px;border-radius: 8px;" *ngIf="!isimgLoaded"></ion-skeleton-text>
+            <img [hidden]="!isimgLoaded" src="{{img.image }}" alt="" srcset="" (load)="isimgLoaded = true" tappable (click)="openPreview(img.image)">
+          </div>
+          </div>
+        </div>
+      </div>
+      <br>
+      <ion-item lines="none">
+        <h2 style="color: #4c8fa3">Name : {{ pic.name }}</h2>
+      </ion-item>
+      <ion-item lines="none">
+        <h2 style="color: #4c8fa3">Contact : {{ pic.contact }}</h2>
+      </ion-item>
+      <!-- <ion-item lines="none">
+        <h2 style="color: #4c8fa3">Host : {{ pic.host }}</h2>
+      </ion-item> -->
+      <ion-item lines="none">
+        <h2 style="color: #4c8fa3">Content : {{ pic.content }}</h2>
+      </ion-item>
+    </ion-card-content><br>
+
+    <ion-item lines="none" class="ion-no-padding" style="margin-left: 10px;">
+      <ion-buttons slot="start">
+        <ion-button color="medium" tappable (click)="toggleHeart()">
+          <ion-icon color="primary" slot="start" name="heart-outline"></ion-icon>
+          <small class="p">{{ pic.like }}</small>
+        </ion-button>
+        <!-- <ion-button color="medium" [routerLink]="['./uploads/calbook', pic.id]" routerDirection="forward">
+          <ion-icon style="color: #4c8fa3" slot="start" name="clipboard"></ion-icon>
+          <small class="p" style="color: #4c8fa3">4</small>
+        </ion-button> -->
+        <ion-button color="medium">
+          <ion-icon color="primary" slot="start" name="chatbox-outline"></ion-icon>
+          <small class="p">{{ pic.comments }}</small>
+        </ion-button>
+      </ion-buttons>
+    </ion-item>
+
+  </ion-card>
+ 
+  <ion-item>
+    <ion-label color="primary">
+      <p class="p">Feed Comments</p>
+    </ion-label>
+  </ion-item>
+  <ion-grid>
+    <ion-row *ngFor="let message of messages | async">
+      <ion-col size="9" class="message"
+        [offset]="message.myMsg ? 3 : 0"
+        [ngClass]="{ 'my-message': message.myMsg, 'other-message': !message.myMsg }"
+        [routerLink]="['../viewprofile', message.userid]">
+        <b>{{ message.name }} {{ message.surname }}</b><br>
+        <span>{{ message.msg }}
+        </span>
+        <div class="time ion-text-right"><br>{{ message.createdAt?.toMillis() | date:'short' }}</div>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+</ion-content>
+
+<ion-footer>
+  <ion-toolbar color="light">
+    <ion-row class="ion-align-items-center">
+      <ion-col size="10">
+        <ion-textarea autoGrow="true" class="message-input" rows="1" maxLength="500" [(ngModel)]="newMsg" >
+        </ion-textarea>
+      </ion-col>
+      <ion-col size="2">
+        <ion-button expand="block" fill="clear" color="primary" [disabled]="newMsg === ''"
+          class="msg-btn" (click)="sendMsg()">
+          <ion-icon name="send" slot="icon-only"></ion-icon>
+        </ion-button>
+      </ion-col>
+    </ion-row>
+  </ion-toolbar>
+</ion-footer>

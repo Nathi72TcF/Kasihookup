@@ -1,0 +1,95 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-icon name="arrow-back" (click)="goToFeedWall()" vertical="end" slot="start" style="margin-left: 10px;"></ion-icon>
+    <ion-title *ngFor="let pic of post">{{ pic.name }} {{ pic.surname }}'s Post</ion-title>
+  </ion-toolbar>
+</ion-header>
+ 
+<ion-content class="ion-padding">
+
+  <ion-card *ngFor="let pic of post" class="align">
+    <ion-item lines="none">
+      <ion-avatar slot="start">
+        <img *ngIf="!pic.userimage" src="../../../../assets/images/User_Avatar.png" alt="">
+        <img src="{{ pic.userimage }}" tappable (click)="openPreview(pic.userimage)">
+      </ion-avatar>
+      <ion-label color="primary" [routerLink]="['./viewprofile', pic.userid]">
+        {{ pic.name }} {{ pic.surname }}
+        <p class="p">{{ pic.date | date: 'yyyy-MM-dd hh:mm: a' }}</p>
+      </ion-label>
+    </ion-item>
+
+    <ion-card-content class="post-list-content" class="align">
+      <div *ngFor="let img of pic.image">
+        <div *ngIf="imagePostNo === 1">
+          <ion-skeleton-text animated style="width: 300px;height: 400px;border-radius: 8px;" *ngIf="!isimgLoaded"></ion-skeleton-text>
+          <img [hidden]="!isimgLoaded" src="{{ img.image }}" alt="" srcset="" (load)="isimgLoaded = true" tappable (click)="openPreview(img.image)">
+        </div>
+
+        <div *ngIf="imagePostNo >= 2">
+          <div class="images">
+            <div class="one-image">
+              <ion-skeleton-text animated style="width: 300px;height: 400px;border-radius: 8px;" *ngIf="!isimgLoaded"></ion-skeleton-text>
+              <img [hidden]="!isimgLoaded" src="{{img.image}}" alt="" srcset="" (load)="isimgLoaded = true" tappable (click)="openPreview(img.image)">
+            </div>
+          </div>
+        </div>
+      </div>
+      <br>
+      <ion-card-title class="align" color="primary">"{{ pic.content }}"</ion-card-title>
+    </ion-card-content>
+
+    <ion-item lines="none" class="ion-no-padding" style="margin-left: 10px;">
+      <ion-buttons slot="start">
+        <!-- <ion-button color="medium" tappable (click)="getLikeId(pic.id)">
+          <ion-icon color="primary" slot="start" [name]="heartType"></ion-icon>
+        </ion-button> -->
+        <ion-button color="medium" tappable (click)="toggleHeart()">
+          <ion-icon color="primary" slot="start" name="heart-outline"></ion-icon>
+          <small class="p">{{ pic.like }}</small>
+        </ion-button>
+        <ion-button color="medium">
+          <ion-icon color="primary" slot="start" name="chatbox-outline"></ion-icon>
+          <small class="p">{{ pic.comments }}</small>
+        </ion-button>
+      </ion-buttons>
+    </ion-item>
+  </ion-card>
+ 
+  <ion-item>
+    <ion-label color="primary">
+      <p class="p">Feed Comments</p>
+    </ion-label>
+  </ion-item>
+  <ion-grid>
+    <ion-row *ngFor="let message of messages | async">
+      <ion-col size="9" class="message"
+        [offset]="message.myMsg ? 3 : 0"
+        [ngClass]="{ 'my-message': message.myMsg, 'other-message': !message.myMsg }"
+        [routerLink]="['../viewprofile', message.userid]">
+        <b>{{ message.name }} {{ message.surname }}</b><br>
+        <span>{{ message.msg }}
+        </span>
+        <div class="time ion-text-right"><br>{{ message.createdAt?.toMillis() | date:'short' }}</div>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+ 
+</ion-content>
+ 
+<ion-footer>
+  <ion-toolbar color="light">
+    <ion-row class="ion-align-items-center">
+      <ion-col size="10">
+        <ion-textarea autoGrow="true" class="message-input" rows="1" maxLength="500" [(ngModel)]="newMsg" >
+        </ion-textarea>
+      </ion-col>
+      <ion-col size="2">
+        <ion-button expand="block" fill="clear" color="primary" [disabled]="newMsg === ''"
+          class="msg-btn" (click)="sendMsg()">
+          <ion-icon name="send" slot="icon-only"></ion-icon>
+        </ion-button>
+      </ion-col>
+    </ion-row>
+  </ion-toolbar>
+</ion-footer>

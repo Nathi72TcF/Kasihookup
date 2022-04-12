@@ -1,0 +1,116 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-icon name="arrow-back" (click)="goToSettings()" color="primary" vertical="end" slot="start" style="margin-left: 10px;"></ion-icon>
+    <ion-title color="primary">
+     Add Hookup Party
+    </ion-title>
+
+    <ion-buttons slot="end">
+      <ion-button (click)="openManange()" routerDirection="forward">
+        <ion-icon slot="icon-only" color="primary" name="apps-outline"></ion-icon>
+      </ion-button>
+      <ion-button (click)="exceptHooks()" routerDirection="forward">
+        <ion-icon slot="icon-only" color="primary" name="cash-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+  <div class="login-box">
+
+    <ion-grid align="center">
+      <ion-row>
+        <ion-col>
+          <div *ngIf="imageResponse.length === 0">
+            <ion-skeleton-text animated style="width: 300px;height: 400px;border-radius: 8px;" *ngIf="!isimgLoaded"></ion-skeleton-text>
+          </div>
+          
+          <div *ngFor="let img of imageResponse">
+            <div *ngIf="imageResponse.length === 1">
+              <ion-skeleton-text animated style="width: 300px;height: 400px;border-radius: 8px;" *ngIf="!isimgLoaded"></ion-skeleton-text>
+              <img [hidden]="!isimgLoaded" src="{{ img.image }}" alt="" srcset="" (load)="isimgLoaded = true">
+            </div>
+    
+            <div *ngIf="imageResponse.length >= 2">
+              <div class="images">
+                <div class="one-image">
+                  <ion-skeleton-text animated style="width: 300px;height: 400px;border-radius: 8px;" *ngIf="!isimgLoaded"></ion-skeleton-text>
+                  <img [hidden]="!isimgLoaded" src="{{img.image}}" alt="" srcset="" (load)="isimgLoaded = true">
+                </div>
+              </div>
+            </div>
+          </div>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+    <br>
+
+    <div align="center">
+      <label for="disapear" align="center">
+        <ion-icon color="primary" slot="end" name="camera">
+          <input id="disapear" class="image-upload" type="file" multiple="false" accept="image/*" (change)="changeListener2($event)" align="center">
+        </ion-icon>
+      </label>
+    </div><br>
+    <div align="center">
+      <ion-progress-bar value="{{ uploadingprogress/100 }}"></ion-progress-bar>
+    </div>
+  </div>
+  
+  <br>
+
+  <ion-item class="input">
+    <ion-label position="floating" color="primary">Name of Party</ion-label>
+    <ion-input color="primary" [(ngModel)]="nameofparty"></ion-input>
+  </ion-item>
+  <ion-item class="input">
+    <ion-label position="floating" color="primary">Venue</ion-label>
+    <ion-textarea rows="3" color="primary" [(ngModel)]="venue"></ion-textarea>
+  </ion-item>
+  <ion-item class="input">
+  <ion-label color="primary">Province</ion-label>
+   <ion-select color="primary" interface="popover" style="text-align: right" (ionChange)="reminderTimes($event)" [(ngModel)]="province">
+      <ion-select-option style="color:#4c8fa3;" value="Gauteng">Gauteng</ion-select-option>
+      <ion-select-option style="color:#4c8fa3;" value="Mpumalanga">Mpumalanga</ion-select-option>
+      <ion-select-option style="color:#4c8fa3;" value="Limpopo">Limpopo</ion-select-option>
+      <ion-select-option style="color:#4c8fa3;" value="Kwazulu Natal">Kwazulu Natal</ion-select-option>
+      <ion-select-option style="color:#4c8fa3;" value="Free State">Free State</ion-select-option>
+      <ion-select-option style="color:#4c8fa3;" value="North West">North West</ion-select-option>
+      <ion-select-option style="color:#4c8fa3;" value="Eastern Cape">Eastern Cape</ion-select-option>
+      <ion-select-option style="color:#4c8fa3;" value="Western Cape">Western Cape</ion-select-option>
+      <ion-select-option style="color:#4c8fa3;" value="Northern Cape">Northern Cape</ion-select-option>
+   </ion-select>
+</ion-item>
+  <ion-item class="input">
+    <ion-label position="floating" color="primary">Price (Joining Fee)</ion-label>
+    <ion-input color="primary" [(ngModel)]="price"></ion-input>
+  </ion-item>
+  <ion-item class="input">
+    <ion-label position="floating" color="primary">No of People</ion-label>
+    <ion-input color="primary" [(ngModel)]="nopeople" type="number"></ion-input>
+  </ion-item>
+  <ion-item class="input">
+    <ion-label position="floating" color="primary">No of Males</ion-label>
+    <ion-input color="primary" [(ngModel)]="males" type="number"></ion-input>
+  </ion-item>
+  <ion-item class="input">
+    <ion-label position="floating" color="primary">No of Female</ion-label>
+    <ion-input color="primary" [(ngModel)]="females" type="number"></ion-input>
+  </ion-item>
+  <ion-item lines="inset">
+    <ion-label position="floating" color="primary">Party Date</ion-label>
+    <ion-datetime (ionChange)="dateSelected($event)" displayFormat="YYYY:MM:DD" style="color:#4c8fa3; font-weight: 500;" name="alarm" placeholder="select time" type="date"></ion-datetime>
+ </ion-item>
+ <ion-item lines="inset">
+  <ion-label position="floating" color="primary">Party Time</ion-label>
+  <ion-datetime (ionChange)="timeSelected($event)" displayFormat="HH:mm" style="color:#4c8fa3; font-weight: 500;" name="alarm" placeholder="select time" type="date"></ion-datetime>
+</ion-item>
+  <ion-item class="input">
+    <ion-label position="floating" color="primary">Party Discription</ion-label>
+    <ion-textarea rows="3" color="primary" [(ngModel)]="content"></ion-textarea>
+  </ion-item>
+  <br>
+  <ion-button expand="block" fill="outline" color="primary" (click)="addHookuppartyPost()" clear>Post</ion-button><br>
+
+</ion-content>

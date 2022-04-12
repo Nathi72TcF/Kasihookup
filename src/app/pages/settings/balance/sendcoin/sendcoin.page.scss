@@ -1,0 +1,103 @@
+.bgc {
+    background-color: rgb(0, 0, 0);
+    // background-color: #3880ff;
+    background-size: cover;
+}
+
+ion-content{
+    height: 100%;
+    width: 100%;
+    // --background: url("../../assets/images/landingBckgrnd.jpg") no-repeat center center / cover;
+    // --background: linear-gradient(9deg, rgb(238, 39, 39) 10%, rgba(0, 74, 67, 1) 30%, rgba(10, 86, 84, 1) 47%, rgba(54, 144, 166, 1) 89%);
+}
+
+.login-box {
+    width: 90%;
+    margin: auto;
+    height: auto;
+    border-radius: 5px;
+    padding: 10px;
+    //  background-color: hsla(213, 9%, 19%, 0.3);
+    .align {
+        text-align: center;
+        margin: auto;
+        padding-top: 6px;
+    }
+    .alignlright {
+        text-align: right;
+        margin: auto;
+        padding-top: 6px;
+    }
+    ion-item {
+        // color: white;
+    }
+    
+
+.align {
+    align-content: center;
+    .img {
+        max-width: 100% !important;
+        // margin: auto !important;
+        max-height: 100% !important;
+    }
+}
+
+    #user-profile{
+    height: 100%;
+    width: 80%;
+    // border: solid 2px black;
+    display:flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  #user-pic{
+    // background: #DAE0E3;
+    height: 200px;
+    width: 200px;
+    position: relative;
+    border-radius: 10px;
+  }
+  #user-pic > img{
+    height: 200px;
+    width: 200px;
+    border-radius: 10px;
+  }
+
+  .input {
+    border-radius: 10px;
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    margin: auto;
+  }
+
+}
+
+.progress {
+    background-color: #e9ecef;
+    border-radius: 0.25rem;
+    display: flex;
+    font-size: 1.2rem;
+    height: 2rem;
+    margin-top:1rem;
+    overflow: hidden;
+  }
+  
+  .progress-bar {
+    align-items: center;
+    background-color: #007bff;
+    color: #fff;
+    display: flex;
+    justify-content: center;
+  }
+
+  .p {
+    color: #3880ff;
+  }
+
+  .h3 {
+    color: #3880ff;
+  }
+  

@@ -1,0 +1,29 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title class="aligned" color="primary"><b>Verify Account</b></ion-title>
+ </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+  <div class="login-box">
+
+    <div class="ion-padding" align="center" class="img">
+      <img src="../../assets/images/kasihookupz.png">
+  </div>
+
+  <ion-item class="align">
+    <p class="p">Please Check your account and verify your email</p>
+  </ion-item>
+
+      <ion-item button>
+          <span class="align">
+          <a (click)="sendVerification()">Resend Link</a>
+          </span>
+      </ion-item>
+      <ion-item button>
+        <span class="align">
+        <a (click)="logout()">Log Out</a>
+        </span>
+    </ion-item>
+  </div>
+</ion-content>

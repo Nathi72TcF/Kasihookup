@@ -1,0 +1,71 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title color="primary">
+     Send Coin
+    </ion-title>
+
+    <ion-buttons slot="end" (click)="dismiss()">
+      <ion-icon color="primary" name="close"></ion-icon>
+    </ion-buttons>
+
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+  <ion-list>
+    <ion-toolbar >
+          <div class='count' *ngIf="searchResults.length > 0"></div>
+        <ion-searchbar name="search" placeholder="Search by User's Name" (ionInput)="getItems($event)"></ion-searchbar>
+    </ion-toolbar>
+
+    <ion-card *ngIf="searchResults.length > 0">
+      <ion-item *ngFor="let coin of searchResults" lines="none">
+        <ion-avatar slot="start">
+          <img *ngIf="!coin.image" src="../../../../../assets/images/User_Avatar.png" alt=""> 
+          <img *ngIf="coin.image" src="{{ coin.image }}">
+        </ion-avatar>
+        <ion-label color="primary" (click)='presentAlertAddUser(coin.userid)'>
+          {{ coin.name }} {{ coin.surname }}
+        </ion-label>
+      </ion-item>
+  </ion-card>
+
+  <ion-card *ngIf="searchResults.length == 0">
+      <ion-item *ngFor="let coin of userListProfile" lines="none">
+        <ion-avatar slot="start">
+          <img *ngIf="!coin.image" src="../../../../../assets/images/User_Avatar.png" alt=""> 
+          <img *ngIf="coin.image" src="{{ coin.image }}">
+        </ion-avatar>
+        <ion-label color="primary" (click)='presentAlertAddUser(coin.userid)'>
+          {{ coin.name }} {{ coin.surname }}
+        </ion-label>
+      </ion-item>
+  </ion-card>
+  </ion-list>
+</ion-content>
+
+<ion-footer>
+  <ion-toolbar color="light">
+    <ion-item lines="none">
+      <ion-avatar slot="start">
+        <img *ngIf="!image" src="../../../../../assets/images/User_Avatar.png" alt=""> 
+        <img *ngIf="image" src="{{image}}" alt="">
+      </ion-avatar>
+      <ion-label color="primary">
+        {{ name }} {{ surname }}
+      </ion-label>
+      <ion-label color="primary">
+        Wallet ID : {{ tcfid }}
+      </ion-label>
+    </ion-item>
+    <ion-item lines="none">
+      <form [formGroup]="RegisterForm" style="margin-left: 10px;margin-right: 10px;">
+        <ion-item class="input">
+          <ion-label position="floating" color="primary">Enter Amount to Send</ion-label>
+          <ion-input formControlName="sentAmount" [(ngModel)]="sentAmount" maxlength="4" color="primary"></ion-input>
+      </ion-item>
+      </form>
+      <ion-button expand="block" fill="outline" color="primary" (click)="sendCoin()" [disabled]="!RegisterForm.valid" clear>Send Coin</ion-button><br>
+    </ion-item>
+  </ion-toolbar>
+</ion-footer>

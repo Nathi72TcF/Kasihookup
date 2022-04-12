@@ -117,3 +117,142 @@ ion-note {
 ion-item.selected {
   --color: var(--ion-color-primary);
 }
+
+.login-box {
+  width: 90%;
+  margin: auto;
+  height: auto;
+  border-radius: 5px;
+  padding: 10px;
+  //  background-color: hsla(213, 9%, 19%, 0.3);
+  .align {
+      text-align: right;
+      margin: auto;
+      padding-top: 6px;
+  }
+  ion-item {
+      // color: white;
+  }
+
+.aligned {
+  align-content: center;
+}
+
+#user-profile{
+  height: 60%;
+  width: 80%;
+  // border: solid 2px black;
+  display:flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#user-pic{
+  // background: #DAE0E3;
+  height: 200px;
+  width: 200px;
+  position: relative;
+  border-radius: 100px;
+}
+#user-pic > img{
+  height: 200px;
+  width: 200px;
+  border-radius: 100px;
+}
+
+}
+
+// new code 
+
+.profile {
+  //  border: 1px solid blue;
+    height: 200px !important;
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+    justify-content: center;
+    align-items: center;
+    background-color: darkslategray;
+    .profilepic {
+        width: 100px;
+        height: 100px;
+        border-radius: 50%;
+        background: white;
+    }
+  h4,p {
+  color: white;
+    margin: 0;
+    padding: 0;
+    margin-top: 5px;
+    font-size: 17px;
+  }
+  #border {
+    border: 0.5px solid rgb(185, 184, 184);
+    width: 90%;
+    margin-top: 3%;
+    margin-left: 5%;
+  }
+  }
+  
+  #names, #position {
+  font-family: 'lato';
+  font-weight: lighter;
+  letter-spacing: 0.8px;
+  }
+  #position {
+    font-size: 12px;
+  }
+  
+  .version {
+   // border: 1px solid red;
+    width: 100%;
+    height: 120px;
+    position: absolute;
+    bottom: 0 !important;
+  
+    .logos {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        //border: 1px solid rgb(243, 239, 24);
+        margin: 0 !important;
+        padding: 0 !important;
+        img {
+            width: 25px;
+            margin: 0 !important;
+            padding: 0 !important;
+        }
+        h3 {
+            margin: 0 !important;
+            padding: 0 !important;
+            font-size: 15px;
+            padding-left: 6px !important;
+            font-family: 'brandish';
+            color: white;
+            letter-spacing: 0.7px;
+  
+        }
+    }
+  
+    .terms {
+       // border: 1px solid rgb(255, 255, 255);
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        p {
+              margin: 0 !important;
+        padding: 0 !important;  
+        color: white;
+        font-family: 'lato';
+        font-weight: lighter;
+        }
+    .small {
+        font-size: 10px;
+    }
+    #smalest {
+        padding: 5px !important;
+        text-align: center;
+    }
+    }
+  }

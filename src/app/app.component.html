@@ -3,8 +3,15 @@
     <ion-menu contentId="main-content" type="overlay">
       <ion-content>
         <ion-list id="inbox-list">
-          <ion-list-header>Inbox</ion-list-header>
-          <ion-note>hi@ionicframework.com</ion-note>
+
+          <div class="login-box" *ngFor="let user of userProfile">
+            <div id="user-profile" class="align">
+              <div id="user-pic" class="align">
+                  <img *ngIf="!user.image" src="../../src/assets/images/User_Avatar.png" alt=""> 
+                  <img *ngIf="user.image" src="{{ user.image }}" alt="">
+              </div>
+            </div>
+          </div><br>
 
           <ion-menu-toggle auto-hide="false" *ngFor="let p of appPages; let i = index">
             <ion-item routerDirection="root" [routerLink]="[p.url]" lines="none" detail="false" routerLinkActive="selected">
@@ -13,16 +20,24 @@
             </ion-item>
           </ion-menu-toggle>
         </ion-list>
-
-        <ion-list id="labels-list">
-          <ion-list-header>Labels</ion-list-header>
-
-          <ion-item *ngFor="let label of labels" lines="none">
-            <ion-icon slot="start" ios="bookmark-outline" md="bookmark-sharp"></ion-icon>
-            <ion-label>{{ label }}</ion-label>
-          </ion-item>
-        </ion-list>
       </ion-content>
+      <ion-footer>
+        <ion-toolbar>
+          <ion-buttons slot="start">
+            <ion-button (click)="goToSettings()">
+              <ion-icon color="primary" slot="icon-only" size="large" name="cog-outline"></ion-icon>
+            </ion-button>
+          </ion-buttons>
+  
+          <ion-title color="primary">Kasi Hook Up</ion-title>
+  
+          <ion-buttons slot="end">
+            <ion-button (click)="toggleDarkTheme()">
+              <ion-icon color="primary" slot="icon-only" name="moon-outline"></ion-icon>
+            </ion-button>
+          </ion-buttons>
+        </ion-toolbar>
+      </ion-footer>
     </ion-menu>
     <ion-router-outlet id="main-content"></ion-router-outlet>
   </ion-split-pane>

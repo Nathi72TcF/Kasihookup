@@ -1,0 +1,165 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-icon color="primary" name="arrow-back" vertical="end" slot="start" style="margin-left: 10px;" (click)="goToProfile()"></ion-icon>
+    <ion-title color="primary">Bookings</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-segment 
+    value="all" 
+    color="tertiary" 
+    scrollable="true"
+    mode="ios"
+    [(ngModel)]="segmentModel" 
+    (ionChange)="segmentChanged($event)">
+
+      <ion-segment-button value="bookings">
+        <ion-label color="primary">Bookings</ion-label>
+      </ion-segment-button>
+
+      <ion-segment-button value="active">
+        <ion-label color="primary">Active</ion-label>
+      </ion-segment-button>
+
+      <ion-segment-button value="history">
+        <ion-label color="primary">History</ion-label>
+      </ion-segment-button>
+
+    </ion-segment>
+  
+    <div *ngIf="segmentModel === 'bookings'">
+      <div>
+        <h5 style="color: #4c8fa3;">My Bookings - {{ bookingsNo }}</h5>
+      </div>
+
+      <ion-card *ngIf="bookings.length === 0" style="align-content: center;">
+        <ion-item lines="none">
+          <ion-skeleton-text animated style="width:100px; border-radius: 8px;"></ion-skeleton-text><br>
+          <ion-skeleton-text animated style="width:100px; border-radius: 8px;"></ion-skeleton-text><br>
+          <ion-skeleton-text animated style="width:200px; border-radius: 8px;"></ion-skeleton-text>
+        </ion-item>
+    
+        <ion-card-content class="post-list-content">
+          <ion-skeleton-text animated style="width:100px; border-radius: 8px;"></ion-skeleton-text><br>
+          <ion-skeleton-text animated style="width:100px; border-radius: 8px;"></ion-skeleton-text><br>
+          <ion-skeleton-text animated style="width:100px; border-radius: 8px;"></ion-skeleton-text><br>
+          <ion-skeleton-text animated style="width:100px; border-radius: 8px;"></ion-skeleton-text><br>
+          <ion-skeleton-text animated style="width:100px; border-radius: 8px;"></ion-skeleton-text>
+        </ion-card-content>
+      </ion-card>
+
+      <ion-card *ngFor="let count of bookings">
+        <div align="center">
+          <h5 style="color: #4c8fa3;">Status</h5>
+          <ion-label color="primary">"{{ count.results }}"</ion-label>
+        </div>
+        <div align="center">
+          <h5 style="color: #4c8fa3;">Booked Time: {{count.date }}</h5>
+        </div>
+        <ion-item> 
+          <ion-label>
+            <h3 style="color: #4c8fa3;"><ion-icon name="person" style="color: #4c8fa3;"></ion-icon>Hook Name: {{count.name }}</h3>
+            <h3 style="color: #4c8fa3;"><ion-icon name="pin" style="color: #4c8fa3;"></ion-icon>Location - {{count.location}}</h3>
+            <h3 style="color: #4c8fa3;"><ion-icon name="stopwatch" style="color: #4c8fa3;"></ion-icon>Time - {{count.type}}</h3>
+            <h3 style="color: #4c8fa3;"><ion-icon name="notifications" style="color: #4c8fa3;"></ion-icon>Status - {{count.status}}</h3>
+            <h3 style="color: #4c8fa3;"><ion-icon name="cash" style="color: #4c8fa3;"></ion-icon>Paying - R{{count.money / 10}}</h3>
+          </ion-label>
+        </ion-item>
+      </ion-card>
+    </div>
+
+    <div *ngIf="segmentModel === 'active'">
+      <div>
+        <h5 style="color: #4c8fa3;">Active Bookings - {{ activeNo }}</h5>
+      </div>
+
+      <ion-card *ngIf="active.length === 0" style="align-content: center;">
+        <ion-item lines="none">
+          <ion-skeleton-text animated style="width:100px; border-radius: 8px;"></ion-skeleton-text><br>
+          <ion-skeleton-text animated style="width:100px; border-radius: 8px;"></ion-skeleton-text><br>
+          <ion-skeleton-text animated style="width:200px; border-radius: 8px;"></ion-skeleton-text>
+        </ion-item>
+    
+        <ion-card-content class="post-list-content">
+          <ion-skeleton-text animated style="width:100px; border-radius: 8px;"></ion-skeleton-text><br>
+          <ion-skeleton-text animated style="width:100px; border-radius: 8px;"></ion-skeleton-text><br>
+          <ion-skeleton-text animated style="width:100px; border-radius: 8px;"></ion-skeleton-text><br>
+          <ion-skeleton-text animated style="width:100px; border-radius: 8px;"></ion-skeleton-text><br>
+          <ion-skeleton-text animated style="width:100px; border-radius: 8px;"></ion-skeleton-text>
+        </ion-card-content>
+      </ion-card>
+
+      <ion-card *ngFor="let count of active">
+        <div align="center">
+          <ion-label color="primary">Status</ion-label>
+          <h3 style="color: #4c8fa3;">"{{ count.results }}"</h3>
+        </div>
+        <div align="center">
+          <h3 style="color: #4c8fa3;">Open Date: {{ count.date }}</h3>
+          <h3 style="color: #4c8fa3;">"Accepted Date: {{ count.activedate }}"</h3>
+        </div>
+        <ion-item>
+          <ion-label>
+            <h3 style="color: #4c8fa3;"><ion-icon name="person" style="color: #4c8fa3;"></ion-icon>Hook Name: {{count.name }}</h3>
+            <h3 style="color: #4c8fa3;"><ion-icon name="pin" style="color: #4c8fa3;"></ion-icon>Location - {{count.location}}</h3>
+            <h3 style="color: #4c8fa3;"><ion-icon name="stopwatch" style="color: #4c8fa3;"></ion-icon>Time - {{count.type}}</h3>
+            <h3 style="color: #4c8fa3;"><ion-icon name="notifications" style="color: #4c8fa3;"></ion-icon>Status - {{count.status}}</h3>
+            <h3 style="color: #4c8fa3;"><ion-icon name="cash" style="color: #4c8fa3;"></ion-icon>Paying - R{{count.money / 10}}</h3>
+      
+            <div align="right">
+              <ion-button color="primary" tappable [routerLink]="['../bookingchat', count.id]" routerDirection="forward">
+                <ion-icon name="chatbubbles"></ion-icon>
+              </ion-button>
+  
+            </div>
+          </ion-label>
+        </ion-item>
+      </ion-card>
+    </div>
+
+    <div *ngIf="segmentModel === 'history'">
+      <div>
+        <h5 style="color: #4c8fa3;">Active Bookings - {{ activeNo }}</h5>
+      </div>
+
+      <ion-card *ngIf="active.length === 0" style="align-content: center;">
+        <ion-item lines="none">
+          <ion-skeleton-text animated style="width:100px; border-radius: 8px;"></ion-skeleton-text><br>
+          <ion-skeleton-text animated style="width:100px; border-radius: 8px;"></ion-skeleton-text><br>
+          <ion-skeleton-text animated style="width:200px; border-radius: 8px;"></ion-skeleton-text>
+        </ion-item>
+    
+        <ion-card-content class="post-list-content">
+          <ion-skeleton-text animated style="width:100px; border-radius: 8px;"></ion-skeleton-text><br>
+          <ion-skeleton-text animated style="width:100px; border-radius: 8px;"></ion-skeleton-text><br>
+          <ion-skeleton-text animated style="width:100px; border-radius: 8px;"></ion-skeleton-text><br>
+          <ion-skeleton-text animated style="width:100px; border-radius: 8px;"></ion-skeleton-text><br>
+          <ion-skeleton-text animated style="width:100px; border-radius: 8px;"></ion-skeleton-text>
+        </ion-card-content>
+      </ion-card>
+
+      <ion-card *ngFor="let count of active">
+        <div align="center">
+          <ion-label color="primary">Status</ion-label>
+          <h5 style="color: #4c8fa3;">"{{ count.results }}"</h5>
+        </div>
+        <div align="center">
+          <h5 style="color: #4c8fa3;">Open Date: {{ count.date }}</h5>
+          <h5 style="color: #4c8fa3;">"Accepted Date: {{ count.activedate }}"</h5>
+          <h5 style="color: #4c8fa3;">"Closed Date: {{ count.closeddate }}"</h5>
+        </div>
+        <ion-item>
+          <ion-label>
+            <h3 style="color: #4c8fa3;"><ion-icon name="person" style="color: #4c8fa3;"></ion-icon>Hook Name: {{count.name }}</h3>
+            <h3 style="color: #4c8fa3;"><ion-icon name="pin" style="color: #4c8fa3;"></ion-icon>Location - {{count.location}}</h3>
+            <h3 style="color: #4c8fa3;"><ion-icon name="stopwatch" style="color: #4c8fa3;"></ion-icon>Time - {{count.type}}</h3>
+            <h3 style="color: #4c8fa3;"><ion-icon name="notifications" style="color: #4c8fa3;"></ion-icon>Status - {{count.status}}</h3>
+            <h3 style="color: #4c8fa3;"><ion-icon name="cash" style="color: #4c8fa3;"></ion-icon>Paying - R{{count.money / 10}}</h3>
+  
+          </ion-label>
+        </ion-item>
+      </ion-card>
+    </div>
+
+</ion-content>

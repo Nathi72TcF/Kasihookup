@@ -1,0 +1,20 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title>App is Offline</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <div align="center" style="padding-top: 50px; padding-bottom: 80px;">
+    <ion-card style="color: #f10b63; font-weight: 800;" padding align="center">
+      <img src="./../../assets/images/No Network 2.jpeg"><br>
+      
+      <h3 style="padding-top: 50px;" padding>Check your Network or Data</h3><br>
+  
+    </ion-card><br>
+
+    <ion-button shape="round" color="primary" fill="outline" (click)="chechNetwork()">Reload</ion-button>
+
+  </div>
+  
+</ion-content>

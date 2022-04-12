@@ -1,0 +1,530 @@
+<ion-header>
+  <ion-toolbar>
+
+    <ion-buttons slot="start">
+      <ion-menu-button color="primary"></ion-menu-button>
+    </ion-buttons>
+
+    <ion-title color="primary">
+      <!-- <ion-menu-button slot="start" color="primary"></ion-menu-button> -->
+      {{ user.name }} {{ user.surname }}
+    </ion-title>
+
+    <!-- <ion-buttons slot="end">
+      <ion-button>
+        <ion-menu-button color="primary"></ion-menu-button>
+      </ion-button>
+    </ion-buttons> -->
+
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+  <ion-refresher slot="fixed" style="--ion-text-color: var(--ion-color-medium);" (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content pullingIcon="arrow-down-outline"></ion-refresher-content>
+  </ion-refresher>
+
+  <!-- <ion-card *ngIf="userProfile.length === 0" style="align-content: center;">
+    <ion-item lines="none">
+      <ion-avatar slot="start">
+        <ion-skeleton-text animated style="width: 50px;height: 50px;border-radius: 50px;"></ion-skeleton-text>
+      </ion-avatar>
+      <ion-label color="primary">
+        <ion-skeleton-text animated style="width:100px; border-radius: 8px;"></ion-skeleton-text><br>
+        <ion-skeleton-text animated style="width:150px; border-radius: 8px;"></ion-skeleton-text>
+      </ion-label>
+    </ion-item>
+
+    <ion-card-content class="post-list-content">
+      <ion-skeleton-text animated style="width: 300px;height: 400px;border-radius: 8px;"></ion-skeleton-text><br>
+      <ion-skeleton-text animated style="width:200px; border-radius: 8px;"></ion-skeleton-text><br>
+      <ion-skeleton-text animated style="width:100px; border-radius: 8px;"></ion-skeleton-text><br>
+
+      <ion-skeleton-text animated style="width:200px; border-radius: 8px;"></ion-skeleton-text><br>
+      <ion-skeleton-text animated style="width:100px; border-radius: 8px;"></ion-skeleton-text>
+    </ion-card-content>
+  </ion-card> -->
+
+  <ion-list lines="none">
+    <ion-item lines="none" *ngFor="let user of userProfile">
+      <ion-avatar slot="start" style="width: 72px;height: 72px;">
+        <img *ngIf="!user.image" src="../../../assets/images/User_Avatar.png" alt="">
+        <img [src]="user.image">
+      </ion-avatar>
+      <ion-label>
+        <h1 style="font-weight: bold;" class="p">{{user.name}} {{user.surname}}</h1>
+        <h3 class="p">Age - {{user.gender}}</h3>
+        <h3 class="p">Location - {{user.location}}</h3>
+        <p style="vertical-align: middle;display: table-cell;" class="p">
+          <!-- {{user.online ? 'online' : 'offline'}}
+          <ion-icon name="phone-portrait-outline" size="small" color="primary"
+            style="width: 14px;height: 14px;vertical-align: middle;" *ngIf="userOnline == true">
+          </ion-icon> -->
+        </p>
+          <p style="color:#4c8fa3; margin-right: 5px" *ngIf="userOnline === true"><ion-icon style="color:#00ff37;" name="beer"></ion-icon> online</p>
+          <p style="color:#4c8fa3; margin-right: 5px" *ngIf="userOnline === false"><ion-icon style="color:#ff0000;" name="beer-outline"></ion-icon> offline</p>
+      </ion-label>
+    </ion-item>
+    <ion-item *ngFor="let hook of Profiles">
+      <ion-label color="primary" position="floating">About Me</ion-label><br>
+      <!-- <h5 class="p">"{{ hook.aboutme }}"</h5> -->
+      <ion-textarea rows="1" color="primary" [(ngModel)]="aboutme" autoGrow="true" clearOnEdit='true' placeholder="Enter about me here"></ion-textarea>
+    </ion-item>
+    <ion-item>
+      <ion-button (click)="saveaboutme()" color="primary">
+        Save About Me
+      </ion-button>
+    </ion-item>
+
+    <!-- Basics -->
+      <ion-card>
+        <ion-card-header>
+          <ion-card-title color="primary">Basics</ion-card-title><br>
+        </ion-card-header>
+
+        <ion-card-content>
+          <ion-item>
+            <ion-label color="primary" position="floating">Gender</ion-label><br>
+            <h5 class="p">{{ user.gender }}</h5>
+          </ion-item>
+          <ion-item *ngFor="let hook of Profiles">
+            <ion-icon style="color:#4c8fa3; margin-right: 5px" name="save"></ion-icon>
+            <ion-label color="primary">Height - {{ hook.height }}</ion-label>
+            <ion-select interface="popover" style="text-align: center" (ionChange)="setHeight($event)" [(ngModel)]="height">
+                <ion-select-option value="Others">1.3m - 1.4m</ion-select-option>
+                <ion-select-option value="Others">1.4m - 1.5m</ion-select-option>
+                <ion-select-option value="Others">1.5m - 1.6m</ion-select-option>
+                <ion-select-option value="Others">1.6m - 1.7m</ion-select-option>
+                <ion-select-option value="Others">1.7m - 1.8m</ion-select-option>
+                <ion-select-option value="Others">1.8m - 1.9m</ion-select-option>
+                <ion-select-option value="Others">1.9m - 2.0m</ion-select-option>
+                <ion-select-option value="Others">2.1m - 2.2m</ion-select-option>
+                <ion-select-option value="Others">2.2m - 2.3m</ion-select-option>
+                <ion-select-option value="Others">2.3m - 2.4m</ion-select-option>
+                <ion-select-option value="Others">2.4m - 2.5m</ion-select-option>
+                <ion-select-option value="Others">Others</ion-select-option>
+            </ion-select>
+          </ion-item>
+          <ion-item *ngFor="let hook of Profiles">
+            <ion-icon style="color:#4c8fa3; margin-right: 5px" name="save"></ion-icon>
+            <ion-label color="primary">Weight - {{ hook.weight }}</ion-label>
+            <ion-select interface="popover" style="text-align: center" (ionChange)="setWeight($event)" [(ngModel)]="weight">
+                <ion-select-option value="30kg - 35kg">30kg - 35kg</ion-select-option>
+                <ion-select-option value="35kg - 40kg">35kg - 40kg</ion-select-option>
+                <ion-select-option value="40kg - 45kg">40kg - 45kg</ion-select-option>
+                <ion-select-option value="45kg - 50kg">45kg - 50kg</ion-select-option>
+                <ion-select-option value="50kg - 55kg">50kg - 55kg</ion-select-option>
+                <ion-select-option value="55kg - 60kg">55kg - 60kg</ion-select-option>
+                <ion-select-option value="60kg - 65kg">60kg - 65kg</ion-select-option>
+                <ion-select-option value="65kg - 70kg">65kg - 70kg</ion-select-option>
+                <ion-select-option value="70kg - 75kg">70kg - 75kg</ion-select-option>
+                <ion-select-option value="75kg - 80kg">75kg - 80kg</ion-select-option>
+                <ion-select-option value="Others">Others</ion-select-option>
+            </ion-select>
+          </ion-item>
+          <ion-item *ngFor="let hook of Profiles">
+            <ion-icon style="color:#4c8fa3; margin-right: 5px" name="save"></ion-icon>
+            <ion-label color="primary">Eye Colour - {{ hook.eyecolour }}</ion-label>
+            <ion-select interface="popover" style="text-align: center" (ionChange)="setEyeColor($event)" [(ngModel)]="eyecolour">
+                <ion-select-option value="Black">Black</ion-select-option>
+                <ion-select-option value="Blue">Blue</ion-select-option>
+                <ion-select-option value="Brown">Brown</ion-select-option>
+                <ion-select-option value="Grey">Grey</ion-select-option>
+                <ion-select-option value="Green">Green</ion-select-option>
+                <ion-select-option value="Hazel">Hazel</ion-select-option>
+                <ion-select-option value="Others">Others</ion-select-option>
+            </ion-select>
+          </ion-item>
+          <ion-item *ngFor="let hook of Profiles">
+            <ion-icon style="color:#4c8fa3; margin-right: 5px" name="save"></ion-icon>
+            <ion-label color="primary">Body Type - {{ hook.bodytype }}</ion-label>
+            <ion-select interface="popover" style="text-align: center" (ionChange)="setBodyType($event)" [(ngModel)]="bodytype">
+                <ion-select-option value="Slim">Slim</ion-select-option>
+                <ion-select-option value="Avarage">Avarage</ion-select-option>
+                <ion-select-option value="Athletic">Athletic</ion-select-option>
+                <ion-select-option value="Large">Large</ion-select-option>
+                <ion-select-option value="XXL">XXL</ion-select-option>
+                <ion-select-option value="Others">Others</ion-select-option>
+            </ion-select>
+          </ion-item>
+          <ion-item *ngFor="let hook of Profiles">
+            <ion-icon style="color:#4c8fa3; margin-right: 5px" name="save"></ion-icon>
+            <ion-label color="primary">Hair Color - {{ hook.haircolor }}</ion-label>
+            <ion-select interface="popover" style="text-align: center" (ionChange)="setHairColor($event)" [(ngModel)]="haircolor">
+                <ion-select-option value="Black">Black</ion-select-option>
+                <ion-select-option value="Blonde">Blonde</ion-select-option>
+                <ion-select-option value="Dark Blonde">Dark Blonde</ion-select-option>
+                <ion-select-option value="Light Brown">Light Brown</ion-select-option>
+                <ion-select-option value="Dark Brown">Dark Brown</ion-select-option>
+                <ion-select-option value="Auburn / Red">Auburn / Red</ion-select-option>
+                <ion-select-option value="Grey">Grey</ion-select-option>
+                <ion-select-option value="Silver">Silver</ion-select-option>
+                <ion-select-option value="Others">Others</ion-select-option>
+            </ion-select>
+          </ion-item>
+          <ion-item *ngFor="let hook of Profiles">
+            <ion-icon style="color:#4c8fa3; margin-right: 5px" name="save"></ion-icon>
+            <ion-label color="primary">Body Art - {{ hook.bodyart }}</ion-label>
+            <ion-select interface="popover" style="text-align: center" (ionChange)="setBodyArt($event)" [(ngModel)]="bodyart">
+                <ion-select-option value="None">None</ion-select-option>
+                <ion-select-option value="A Secret One">A Secret One</ion-select-option>
+                <ion-select-option value="Branding">Branding</ion-select-option>
+                <ion-select-option value="Earrings">Earrings</ion-select-option>
+                <ion-select-option value="Piercing">Piercing</ion-select-option>
+                <ion-select-option value="Tattoo">Tattoo</ion-select-option>
+                <ion-select-option value="More than one">More than one</ion-select-option>
+                <ion-select-option value="Others">Others</ion-select-option>
+            </ion-select>
+          </ion-item>
+          <ion-item *ngFor="let hook of Profiles">
+            <ion-icon style="color:#4c8fa3; margin-right: 5px" name="save"></ion-icon>
+            <ion-label color="primary">Looking For - {{ hook.lookingfor }}</ion-label>
+            <ion-select interface="popover" style="text-align: center" (ionChange)="setLookingFor($event)" [(ngModel)]="lookingfor">
+                <ion-select-option value="a Female">a Female</ion-select-option>
+                <ion-select-option value="a Male">a Male</ion-select-option>
+                <ion-select-option value="a Couple">a Couple</ion-select-option>
+                <ion-select-option value="Transgender">Transgender</ion-select-option>
+            </ion-select>
+          </ion-item>
+          <ion-item *ngFor="let hook of Profiles">
+            <ion-icon style="color:#4c8fa3; margin-right: 5px" name="save"></ion-icon>
+            <ion-label color="primary">Turn Off - {{ hook.turnoff }}</ion-label>
+            <ion-select interface="popover" style="text-align: center" (ionChange)="setTurnOff($event)" [(ngModel)]="turnoff">
+                <ion-select-option value="Pevert">Pevert</ion-select-option>
+                <ion-select-option value="Persistance">Persistance</ion-select-option>
+                <ion-select-option value="Annoying">Annoying</ion-select-option>
+            </ion-select>
+          </ion-item>
+        </ion-card-content>
+      </ion-card>
+
+    <!-- Personality -->
+      <ion-card>
+        <ion-card-header>
+          <ion-card-title color="primary">Personality</ion-card-title><br>
+        </ion-card-header>
+
+        <ion-card-content>
+          <ion-item>
+            <ion-label color="primary" position="floating">Star Sign</ion-label><br>
+            <h5 class="p">{{ user.starsign }}</h5>
+          </ion-item>
+          <ion-item *ngFor="let hook of Profiles">
+            <ion-icon style="color:#4c8fa3; margin-right: 5px" name="save"></ion-icon>
+            <ion-label color="primary">Relationship Status - {{ hook.status }}</ion-label>
+            <ion-select interface="popover" style="text-align: center" (ionChange)="setStatus($event)" [(ngModel)]="status">
+                <ion-select-option value="Ask Me">Ask Me</ion-select-option>
+                <ion-select-option value="It's Complicated">It's Complicated</ion-select-option>
+                <ion-select-option value="Single">Single</ion-select-option>
+                <ion-select-option value="Married">Married</ion-select-option>
+                <ion-select-option value="Separated">Separated</ion-select-option>
+                <ion-select-option value="Divorced">Divorced</ion-select-option>
+                <ion-select-option value="Widow(er)">Widow(er)</ion-select-option>
+                <ion-select-option value="In a Relationship">In a Relationship</ion-select-option>
+                <ion-select-option value="Others">Others</ion-select-option>
+            </ion-select>
+          </ion-item>
+          <ion-item *ngFor="let hook of Profiles">
+            <ion-icon style="color:#4c8fa3; margin-right: 5px" name="save"></ion-icon>
+            <ion-label color="primary">Ethnicity - {{ hook.ethnicity }}</ion-label>
+            <ion-select interface="popover" style="text-align: center" (ionChange)="setEthnicity($event)" [(ngModel)]="ethnicity">
+                <ion-select-option value="Asian">Asian</ion-select-option>
+                <ion-select-option value="African Descent / Moore">African Descent / Moore</ion-select-option>
+                <ion-select-option value="Middle Eastern">Middle Eastern</ion-select-option>
+                <ion-select-option value="Hispanic / Latino">Hispanic / Latino</ion-select-option>
+                <ion-select-option value="Indian">Indian</ion-select-option>
+                <ion-select-option value="Mediterranean">Mediterranean</ion-select-option>
+                <ion-select-option value="White / Caucasian">White / Caucasian</ion-select-option>
+                <ion-select-option value="Mixed">Mixed</ion-select-option>
+                <ion-select-option value="Others">Others</ion-select-option>
+            </ion-select>
+          </ion-item>
+          <ion-item *ngFor="let hook of Profiles">
+            <ion-icon style="color:#4c8fa3; margin-right: 5px" name="save"></ion-icon>
+            <ion-label color="primary">Living - {{ hook.living }}</ion-label>
+            <ion-select interface="popover" style="text-align: center" (ionChange)="setLiving($event)" [(ngModel)]="living">
+                <ion-select-option value="I live alone">I live alone</ion-select-option>
+                <ion-select-option value="I live with family">I live with family</ion-select-option>
+                <ion-select-option value="I have roommates">I have roommates</ion-select-option>
+                <ion-select-option value="Student residence">Student residence</ion-select-option>
+                <ion-select-option value="Rather not say">Rather not say</ion-select-option>
+                <ion-select-option value="Others">Others</ion-select-option>
+            </ion-select>
+          </ion-item>
+          <ion-item *ngFor="let hook of Profiles">
+            <ion-icon style="color:#4c8fa3; margin-right: 5px" name="save"></ion-icon>
+            <ion-label color="primary">Drinking Habits - {{ hook.drinkinghabits }}</ion-label>
+            <ion-select interface="popover" style="text-align: center" (ionChange)="setDrinkingHabit($event)" [(ngModel)]="drinkinghabits">
+                <ion-select-option value="Yes">Yes</ion-select-option>
+                <ion-select-option value="No">No</ion-select-option>
+                <ion-select-option value="Yes, socially">Yes, socially</ion-select-option>
+                <ion-select-option value="Yes, Strong">Yes, Strong</ion-select-option>
+            </ion-select>
+          </ion-item>
+          <ion-item *ngFor="let hook of Profiles">
+            <ion-icon style="color:#4c8fa3; margin-right: 5px" name="save"></ion-icon>
+            <ion-label color="primary">Education - {{ hook.education }}</ion-label>
+            <ion-select interface="popover" style="text-align: center" (ionChange)="setEducation($event)" [(ngModel)]="education">
+                <ion-select-option value="High school">High school</ion-select-option>
+                <ion-select-option value="Some college">Some college</ion-select-option>
+                <ion-select-option value="Still studying">Still studying</ion-select-option>
+                <ion-select-option value="Bachelor's degree">Bachelor's degree</ion-select-option>
+                <ion-select-option value="Master's degree/ Doctorate">Master's degree/ Doctorate</ion-select-option>
+                <ion-select-option value="No degree">No degree</ion-select-option>
+                <ion-select-option value="Others">Others</ion-select-option>
+            </ion-select>
+          </ion-item>
+          <ion-item *ngFor="let hook of Profiles">
+            <ion-icon style="color:#4c8fa3; margin-right: 5px" name="save"></ion-icon>
+            <ion-label color="primary">Children - {{ hook.children }}</ion-label>
+            <ion-select interface="popover" style="text-align: center" (ionChange)="setChildren($event)" [(ngModel)]="children">
+                <ion-select-option value="I want children">I want children</ion-select-option>
+                <ion-select-option value="I don't want children">I don't want children</ion-select-option>
+                <ion-select-option value="I have children">I have children</ion-select-option>
+                <ion-select-option value="Kids grown">Kids grown</ion-select-option>
+                <ion-select-option value="I don't have children">I don't have children</ion-select-option>
+                <ion-select-option value="Rather not say">Rather not say</ion-select-option>
+            </ion-select>
+          </ion-item>
+          <ion-item *ngFor="let hook of Profiles">
+            <ion-icon style="color:#4c8fa3; margin-right: 5px" name="save"></ion-icon>
+            <ion-label color="primary">Smoking Habits - {{ hook.smokinghabit }}</ion-label>
+            <ion-select interface="popover" style="text-align: center" (ionChange)="setSmokingHabits($event)" [(ngModel)]="smokinghabits">
+                <ion-select-option value="Yes">Yes</ion-select-option>
+                <ion-select-option value="No">No</ion-select-option>
+                <ion-select-option value="Yes, socially">Yes, socially</ion-select-option>
+            </ion-select>
+          </ion-item>
+          <ion-item *ngFor="let hook of Profiles">
+            <ion-icon style="color:#4c8fa3; margin-right: 5px" name="save"></ion-icon>
+            <ion-label color="primary">Sex Drive - {{ hook.sexdrive }}</ion-label>
+            <ion-select interface="popover" style="text-align: center" (ionChange)="setSexDrive($event)" [(ngModel)]="sexdrive">
+                <ion-select-option value="Compatable">Compatable</ion-select-option>
+                <ion-select-option value="High">High</ion-select-option>
+                <ion-select-option value="Very High">Very High</ion-select-option>
+                <ion-select-option value="Crazy">Crazy</ion-select-option>
+            </ion-select>
+          </ion-item>
+        </ion-card-content>
+      </ion-card><br>
+    </ion-list>
+
+      <ion-item>
+        <h3 class="p">My Pictures</h3><br>
+      </ion-item>
+      <ion-item>
+        <ion-button (click)="addPictures()" color="primary">
+          Add Picture
+        </ion-button>
+      </ion-item>
+      <ion-item *ngIf="Pictures.length === 0">
+        <ion-card>
+          <ion-card-content class="align">
+            <ion-avatar slot="start">
+              <img src="../../../assets/images/none.jpg" >
+            </ion-avatar>
+          </ion-card-content>
+        </ion-card>
+      </ion-item>
+      <ion-item >
+          <ion-card *ngFor="let hooks of Pictures">
+            <ion-card-content>
+              <ion-avatar slot="start" tappable (click)="openPreview(hooks.image)">
+                <img *ngIf="hooks.image" src="{{hooks.image}}" alt="">
+              </ion-avatar><br>
+              <h5 class="p">{{ hooks.picname }}</h5><br>
+              <div class="align">
+                <ion-button expand="outline" (click)="presentAlertDeletePics(hooks.id)">
+                <ion-icon name="trash" color="danger" ></ion-icon>
+              </ion-button>
+              </div><br>
+            </ion-card-content>
+          </ion-card>
+      </ion-item>
+
+      <ion-item>
+        <h3 class="p">My Fettish</h3>
+      </ion-item>
+      <ion-item>
+        <ion-button (click)="addFettish()" color="primary">
+          Add Fettish
+        </ion-button>
+      </ion-item>
+
+      <!-- slides not workong yet -->
+      <!-- <ion-slides [options]="slideOpts" *ngFor="let hook of Profiles">
+        <ion-slide *ngFor="let hooks of hook.fettish">
+          <ion-item>
+            <ion-avatar slot="start" tappable (click)="openPreview(hooks.image)">
+              <img *ngIf="hooks.image" src="{{hooks.image}}" alt="">
+            </ion-avatar>
+          </ion-item>
+          <ion-item>
+            <h5 class="p">{{ hooks.picname }}</h5>
+          </ion-item>
+        </ion-slide>
+      </ion-slides> -->
+
+      <ion-item >
+        <div *ngFor="let hook of Profiles">
+          <ion-card *ngFor="let hooks of hook.fettish" class="tcfaddit">
+            <ion-card-content>
+              <ion-avatar slot="start" tappable (click)="openPreview(hooks.image)">
+                <img *ngIf="hooks.image" src="{{hooks.image}}" alt="">
+              </ion-avatar><br>
+              <h5 class="p">{{ hooks.picname }}</h5>
+            </ion-card-content>
+          </ion-card>
+        </div>
+      </ion-item>
+      
+      <!-- working list but doesnt swipe -->
+      <!-- <ion-item >
+        <div *ngFor="let hook of Profiles">
+          <ion-card *ngFor="let hooks of hook.fettish" class="align">
+            <ion-card-content>
+              <ion-avatar slot="start" tappable (click)="openPreview(hooks.image)">
+                <img *ngIf="hooks.image" src="{{hooks.image}}" alt="">
+              </ion-avatar><br>
+              <h5 class="p">{{ hooks.picname }}</h5>
+            </ion-card-content>
+          </ion-card>
+        </div>
+      </ion-item> -->
+
+      <ion-item>
+        <h3 class="p">Kamasutra that ive Done</h3>
+      </ion-item>
+      <ion-item *ngIf="kamaDone.length === 0">
+        <ion-card>
+          <ion-card-content class="align">
+            <ion-avatar slot="start">
+              <img src="../../../assets/images/none.jpg" >
+            </ion-avatar>
+          </ion-card-content>
+        </ion-card>
+      </ion-item>
+      <ion-item >
+          <ion-card *ngFor="let hooks of kamaDone">
+            <ion-card-content>
+              <ion-avatar slot="start" tappable (click)="openPreview(hooks.pic)">
+                <img *ngIf="hooks.pic" src="{{hooks.pic}}" alt="">
+              </ion-avatar><br>
+              <div class="align">
+                <ion-button expand="outline" (click)="presentAlertDeleteDone(hooks.id)">
+                <ion-icon name="trash" color="danger" ></ion-icon>
+              </ion-button>
+              </div><br>
+            </ion-card-content>
+          </ion-card>
+      </ion-item>
+
+      <ion-item>
+        <h3 class="p">Liked Kamasutra Positions</h3>
+      </ion-item>
+      <ion-item *ngIf="kamaHeart.length === 0">
+        <ion-card>
+          <ion-card-content class="align">
+            <ion-avatar slot="start">
+              <img src="../../../assets/images/none.jpg" >
+            </ion-avatar>
+          </ion-card-content>
+        </ion-card>
+      </ion-item>
+      <ion-item >
+          <ion-card *ngFor="let hooks of kamaHeart">
+            <ion-card-content>
+              <ion-avatar slot="start" tappable (click)="openPreview(hooks.pic)">
+                <img *ngIf="hooks.pic" src="{{hooks.pic}}" alt="">
+              </ion-avatar><br>
+              <div class="align">
+                <ion-button expand="outline" (click)="presentAlertDeleteHeart(hooks.id)">
+                <ion-icon name="trash" color="danger" ></ion-icon>
+              </ion-button>
+              </div><br>
+            </ion-card-content>
+          </ion-card>
+      </ion-item>
+
+      <ion-item>
+        <h3 class="p">Favorate Kamasutra Positions</h3>
+      </ion-item>
+      <ion-item *ngIf="kamaFavorate.length === 0">
+        <ion-card>
+          <ion-card-content class="align">
+            <ion-avatar slot="start">
+              <img src="../../../assets/images/none.jpg" >
+            </ion-avatar>
+          </ion-card-content>
+        </ion-card>
+      </ion-item>
+      <ion-item >
+          <ion-card *ngFor="let hooks of kamaFavorate">
+            <ion-card-content>
+              <ion-avatar slot="start" tappable (click)="openPreview(hooks.pic)">
+                <img *ngIf="hooks.pic" src="{{hooks.pic}}" alt="">
+              </ion-avatar><br>
+              <div class="align">
+                <ion-button expand="outline" (click)="presentAlertDeleteFavorate(hooks.id)">
+                <ion-icon name="trash" color="danger" ></ion-icon>
+              </ion-button>
+              </div><br>
+            </ion-card-content>
+          </ion-card>
+      </ion-item>
+
+      <ion-item>
+        <h3 class="p">Kamasutra that makes me Happy</h3>
+      </ion-item>
+      <ion-item *ngIf="kamaHappy.length === 0">
+        <ion-card>
+          <ion-card-content class="align">
+            <ion-avatar slot="start">
+              <img src="../../../assets/images/none.jpg" >
+            </ion-avatar>
+          </ion-card-content>
+        </ion-card>
+      </ion-item>
+      <ion-item >
+          <ion-card *ngFor="let hooks of kamaHappy">
+            <ion-card-content>
+              <ion-avatar slot="start" tappable (click)="openPreview(hooks.pic)">
+                <img *ngIf="hooks.pic" src="{{hooks.pic}}" alt="">
+              </ion-avatar><br>
+              <div class="align">
+                <ion-button expand="outline" (click)="presentAlertDeleteHappy(hooks.id)">
+                <ion-icon name="trash" color="danger" ></ion-icon>
+              </ion-button>
+              </div><br>
+            </ion-card-content>
+          </ion-card>
+      </ion-item>
+
+      <ion-item>
+        <h3 class="p">Kamasutra that makes me Sad</h3>
+      </ion-item>
+      <ion-item *ngIf="kamaSad.length === 0">
+        <ion-card>
+          <ion-card-content class="align">
+            <ion-avatar slot="start">
+              <img src="../../../assets/images/none.jpg" >
+            </ion-avatar>
+          </ion-card-content>
+        </ion-card>
+      </ion-item>
+      <ion-item >
+          <ion-card *ngFor="let hooks of kamaSad">
+            <ion-card-content>
+              <ion-avatar slot="start" tappable (click)="openPreview(hooks.pic)">
+                <img *ngIf="hooks.pic" src="{{hooks.pic}}" alt="">
+              </ion-avatar><br>
+              <div class="align">
+                <ion-button expand="outline" (click)="presentAlertDeleteSad(hooks.id)">
+                <ion-icon name="trash" color="danger" ></ion-icon>
+              </ion-button>
+              </div><br>
+            </ion-card-content>
+          </ion-card>
+      </ion-item>
+
+</ion-content>
